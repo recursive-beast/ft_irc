@@ -1,0 +1,13 @@
+.DS_Store
+*.out
+*.o
+*.d
+*.a
+*.dSYM
+*.swp
+.cache
+compile_commands.json
+.vscode
+ircserv
+ircserv_bonus
+.build

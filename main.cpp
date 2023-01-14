@@ -1,0 +1,42 @@
+#include "Server.hpp"
+#include <vector>
+#include <poll.h>
+#include <iostream>
+
+void	handleLine(std::string line, Server *server, Client *client)
+{
+	(void)server;
+	client->write(line + "\n");
+	std::cout << "[" << client->addr << ":" << client->port << "]#" << client->sd << ": line: " << line << std::endl;
+}
+
+void	handleConnect(Server *server, Client *client)
+{
+	(void)server;
+	std::cout << "[" << client->addr << ":" << client->port << "]#" << client->sd << ": connected" << std::endl;
+}
+
+void	handleDisconnect(Server *server, Client *client)
+{
+	(void)server;
+	std::cout << "[" << client->addr << ":" << client->port << "]#" << client->sd << ": disconnected" << std::endl;
+}
+
+int main (int argc, char **argv) {
+	try {
+		if (argc != 3)
+			throw std::runtime_error("Invalid arg count");
+
+		Server	server(std::stoi(argv[1]), std::string(argv[2]));
+
+		server.onLine = handleLine;
+		server.onConnect = handleConnect;
+		server.onDisconnect = handleDisconnect;
+		server.poll();
+		return (0);
+	}
+	catch(const std::exception& e) {
+		std::cerr << e.what() << std::endl;
+		return (1);
+	}
+}
