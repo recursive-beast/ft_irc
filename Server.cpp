@@ -148,7 +148,10 @@ void	Server::poll() {
 Server::~Server() {
 	std::map<int, Client *>::iterator it;
 
-	for (it = this->clientsBySD.begin(); it != this->clientsBySD.end(); it++)
+	for (it = this->clientsBySD.begin(); it != this->clientsBySD.end(); it++) {
+		if (this->onDisconnect)
+			this->onDisconnect(this, it->second);
 		delete it->second;
+	}
 	close(this->sd);
 }
