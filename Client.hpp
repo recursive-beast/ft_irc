@@ -4,7 +4,7 @@
 # include <string>
 # include <sys/types.h>
 
-# define RECV_BUFFER_SIZE	(4096)
+# define RECV_BUFFER_SIZE	(512)
 
 class Client {
 	private:
