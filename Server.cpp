@@ -19,7 +19,6 @@ Server::Server(int port, std::string password): port(port), password(password), 
 	this->onLine = NULL;
 	this->onConnect = NULL;
 	this->onDisconnect = NULL;
-	signal(SIGPIPE, SIG_IGN);
 	if (this->sd == -1)
 		perror_except("socket");
 	if (fcntl(this->sd, F_SETFL, O_NONBLOCK) == -1)

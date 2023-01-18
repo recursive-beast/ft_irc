@@ -25,6 +25,7 @@ int main (int argc, char **argv) {
 	try {
 		if (argc != 3)
 			throw std::runtime_error("Invalid arg count");
+		signal(SIGPIPE, SIG_IGN);
 		server = new Server(std::stoi(argv[1]), std::string(argv[2]));
 		server->onLine = handleLine;
 		server->onConnect = handleConnect;
