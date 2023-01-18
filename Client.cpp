@@ -15,17 +15,17 @@ std::string	Client::getline() {
 	size_t		pos;
 	std::string	line;
 
-	pos = this->recv_buffer.find('\n');
+	pos = this->recv_buffer.find("\r\n");
 	if (pos == std::string::npos)
 		throw std::runtime_error("no line available");
 	line = this->recv_buffer.substr(0, pos);
-	this->recv_buffer.erase(0, pos + 1);
+	this->recv_buffer.erase(0, pos + 2);
 	return (line);
 }
 
 bool	Client::hasLine() {
 
-	return (this->recv_buffer.find('\n') != std::string::npos);
+	return (this->recv_buffer.find("\r\n") != std::string::npos);
 }
 
 void	Client::write(std::string s)
