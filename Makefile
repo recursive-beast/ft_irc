@@ -12,6 +12,8 @@ SRC := main.cpp\
 Server.cpp\
 Client.cpp\
 utils.cpp\
+Parser.cpp\
+Pars_utils.cpp\
 
 MSRC :=
 

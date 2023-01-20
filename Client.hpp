@@ -12,11 +12,18 @@ class Client {
 		std::string	send_buffer;
 
 	public:
+		// syakoubi part
 		const int			sd;
 		const int			port;
 		const std::string	addr;
 		bool				connected;
 		std::string			nickname;
+		// mmessaoudi part
+		std::string			userName;
+		std::string			realName;
+		std::string			pass;
+		bool				registred;
+		int					mood;
 
 		Client(int sd, int port, std::string addr);
 		~Client();

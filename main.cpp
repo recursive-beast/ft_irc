@@ -2,11 +2,11 @@
 #include <vector>
 #include <poll.h>
 #include <iostream>
+#include "Parser.hpp"
 
 void	handleLine(std::string line, Server *server, Client *client) {
-	(void)server;
-	client->write(line + "\n");
-	std::cout << "[" << client->addr << ":" << client->port << "]#" << client->sd << ": line: " << line << std::endl;
+	Parser::parseLine(line, server, client);
+	// std::cout << "[" << client->addr << ":" << client->port << "]#" << client->sd << ": line: " << line << std::endl;
 }
 
 void	handleConnect(Server *server, Client *client) {
@@ -30,6 +30,7 @@ int main (int argc, char **argv) {
 		server->onLine = handleLine;
 		server->onConnect = handleConnect;
 		server->onDisconnect = handleDisconnect;
+		Parser::initCmnds();
 		server->poll();
 		delete server;
 		return (0);
@@ -40,3 +41,5 @@ int main (int argc, char **argv) {
 		return (1);
 	}
 }
+
+

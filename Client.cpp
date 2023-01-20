@@ -6,6 +6,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <stdexcept>
+#include "Server.hpp"
 
 Client::Client(int sd, int port, std::string addr): sd(sd), port(port), addr(addr) {
 	this->connected = true;
