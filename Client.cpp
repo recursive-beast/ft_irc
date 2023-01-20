@@ -60,6 +60,7 @@ ssize_t	Client::send() {
 
 void	Client::disconnect() {
 	if (this->connected) {
+		this->send();
 		close(this->sd);
 		this->connected = false;
 	}
