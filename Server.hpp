@@ -19,6 +19,8 @@ class Server {
 
 		int		accept();
 		void	cleanupClients();
+		//aait-oma part
+		std::map<std::string, std::vector<Client *>>	channels;
 
 	public:
 		const int				port;
@@ -27,14 +29,16 @@ class Server {
 		t_line_handler			onLine;
 		t_connect_handler		onConnect;
 		t_disconnect_handler	onDisconnect;
-
 		Server(int port, std::string password);
 		~Server();
-
 		Client	*getClient(int sd);
 		Client	*getClient(std::string nickname);
 		int		setClientNickname(Client *client, std::string nickname);
 		void	poll();
+		//aait-oma part
+		bool channelExists(std::string channel);
+		void addUserToChannel(std::string channel, Client *client);
+		void broadcastMessageToChannel(std::string channel, std::string message);
 };
 
 #endif /* SERVER_H */
