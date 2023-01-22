@@ -14,6 +14,7 @@ Client.cpp\
 utils.cpp\
 Parser.cpp\
 Pars_utils.cpp\
+Channel.cpp\
 
 MSRC :=
 

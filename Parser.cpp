@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmessaou <mmessaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:12:56 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/20 18:49:30 by mmessaou         ###   ########.fr       */
+/*   Updated: 2023/01/22 13:41:36 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,48 @@ void	_USER(std::string line, Server *server, Client *client)
 	_Registred(client);
 }
 
+//aait-oma
+//{
+
+void    _JOIN(std::string line, Server *server, Client *client)
+{
+    std::vector<std::string>    tokens;
+    std::string                 _channel;
+
+    tokens = split(line, ",");
+    if (tokens.size() != 0)
+    {
+        if (tokens[0] == "0")
+        {
+            
+        }
+        else
+        {
+            for (size_t i = 0; i < tokens.size(); i++)
+            {
+                _channel = skipLeadingWhitespaces(tokens[i]);
+                if (startsWithHash(_channel))
+                {
+                    // if (server->channelExists(_channel))
+                    // {
+                    //     server->addUserToChannel(_channel, client);
+                    //     client->write(client->nickname + " JOIN " + _channel);
+                        
+                    // }
+                    // else
+                    // {
+                        
+                    // }
+                }
+            }
+        }
+    }
+	(void) server;
+	(void) client;
+}
+
+//}
+
 std::map<std::string, Parser::func>	Parser::commandes;
 
 void	Parser::initCmnds()
@@ -84,6 +126,10 @@ void	Parser::initCmnds()
 	Parser::commandes["PASS"] = _PASS;
 	Parser::commandes["NICK"] = _NICK;
 	Parser::commandes["USER"] = _USER;
+
+	//aait-oma
+	Parser::commandes["JOIN"] = _JOIN;
+	
 }
 
 void	Parser::parseLine(std::string line, Server *server, Client *client)

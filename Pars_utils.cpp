@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Pars_utils.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmessaou <mmessaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:31:50 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/20 18:23:01 by mmessaou         ###   ########.fr       */
+/*   Updated: 2023/01/22 13:30:29 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,17 @@ void	_Registred(Client *client)
 {
 	if (client->nickname.size() && client->userName.size() && client->realName.size())
 		client->registred = true;
+}
+
+bool startsWithHash(const std::string &str)
+{
+    return str.front() == '#';
+}
+
+std::string skipLeadingWhitespaces(const std::string &str)
+{
+    size_t firstNonSpace = str.find_first_not_of(" \t\n\r\f\v");
+    if (firstNonSpace != std::string::npos)
+        return str.substr(firstNonSpace);
+    return str;
 }

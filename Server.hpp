@@ -6,6 +6,7 @@
 # include <map>
 # include <poll.h>
 # include <vector>
+# include "Channel.hpp"
 
 class Server {
 	typedef void (*t_line_handler)(std::string, Server *, Client *);
@@ -20,7 +21,7 @@ class Server {
 		int		accept();
 		void	cleanupClients();
 		//aait-oma part
-		std::map<std::string, std::vector<Client *>>	channels;
+		std::vector<Channel>			channels;
 
 	public:
 		const int				port;
@@ -35,10 +36,6 @@ class Server {
 		Client	*getClient(std::string nickname);
 		int		setClientNickname(Client *client, std::string nickname);
 		void	poll();
-		//aait-oma part
-		bool channelExists(std::string channel);
-		void addUserToChannel(std::string channel, Client *client);
-		void broadcastMessageToChannel(std::string channel, std::string message);
 };
 
 #endif /* SERVER_H */

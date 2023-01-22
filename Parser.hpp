@@ -14,7 +14,9 @@ class Parser {
 
 };
 
-bool	checkNickName(std::string nickName);
-void	_Registred(Client *client);
+bool		checkNickName(std::string nickName);
+void		_Registred(Client *client);
+std::string skipLeadingWhitespaces(const std::string &str);
+bool 		startsWithHash(const std::string &str);
 
 #endif /* PARSER_H */
