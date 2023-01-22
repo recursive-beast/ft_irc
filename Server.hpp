@@ -21,7 +21,7 @@ class Server {
 		int		accept();
 		void	cleanupClients();
 		//aait-oma part
-		std::vector<Channel>			channels;
+		std::map<std::string, std::vector<Channel>>	channels;
 
 	public:
 		const int				port;
@@ -35,6 +35,8 @@ class Server {
 		Client	*getClient(int sd);
 		Client	*getClient(std::string nickname);
 		int		setClientNickname(Client *client, std::string nickname);
+		//aait-oma
+		bool	channelExists(std::string _channel);
 		void	poll();
 };
 

@@ -6,7 +6,7 @@
 /*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:50:25 by aait-oma          #+#    #+#             */
-/*   Updated: 2023/01/22 13:50:36 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/22 15:45:42 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,27 @@ std::string Channel::getPassword() const { return this->password; }
 std::set<Client *> Channel::getMembers() const { return this->members; }
 std::set<Client *> Channel::getOperators() const { return this->operators; }
 
-// void    Channel::join(Client *client)
-// {
-    
-// }
+void    Channel::join(Client *client)
+{
+    if (client)
+        members.insert(client);
+}
+
+void    Channel::kick(Client *client)
+{
+    if (client)
+        members.erase(client);
+}
+
+void    Channel::setTopic(const std::string &topic_) { topic = topic_; }
+
+void    Channel::addOperator(Client *operat)
+{
+    if (operat)
+        operators.insert(operat);
+}
+void    Channel::removeOperator(Client *operat)
+{
+    if (operat)
+        operators.erase(operat);
+}

@@ -6,7 +6,7 @@
 /*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:12:56 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/22 13:41:36 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/22 15:52:22 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,15 @@ void    _JOIN(std::string line, Server *server, Client *client)
                 _channel = skipLeadingWhitespaces(tokens[i]);
                 if (startsWithHash(_channel))
                 {
-                    // if (server->channelExists(_channel))
-                    // {
-                    //     server->addUserToChannel(_channel, client);
-                    //     client->write(client->nickname + " JOIN " + _channel);
+                    if (server->channelExists(_channel))
+                    {
+                        // server->addUserToChannel(_channel, client);
+                        client->write(client->nickname + " JOIN " + _channel);
+                    }
+                    else
+                    {
                         
-                    // }
-                    // else
-                    // {
-                        
-                    // }
+                    }
                 }
             }
         }

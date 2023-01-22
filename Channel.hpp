@@ -6,7 +6,7 @@
 /*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 10:08:05 by aait-oma          #+#    #+#             */
-/*   Updated: 2023/01/22 13:50:13 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/22 15:23:12 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,13 @@ public:
     std::set<Client *> getMembers() const;
     std::set<Client *> getOperators() const;
     std::set<Client *> getBanned() const;
-    
     void join(Client *client);
     void leave(Client *client);
     void sendMessage(Client *sender, const std::string &message);
-    void setTopic(const std::string &topic);
+    void setTopic(const std::string &topic_);
     void addOperator(Client *operat);
     void removeOperator(Client *operat);
-    void kick(Client *user);
-    void ban(Client *user);
+    void kick(Client *client);
 };
 
 #endif

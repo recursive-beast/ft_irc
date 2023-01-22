@@ -155,3 +155,12 @@ Server::~Server() {
 	}
 	close(this->sd);
 }
+
+
+//aait-oma part
+bool	Server::channelExists(std::string _channel)
+{
+	if (channels.find(_channel) != channels.end())
+		return true;
+	return false;
+}
