@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Pars_utils.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmessaou <mmessaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: syakoubi <syakoubi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:31:50 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/22 16:17:36 by mmessaou         ###   ########.fr       */
+/*   Updated: 2023/01/22 17:11:54 by syakoubi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ std::string	skipWords(std::string line, int nbr)
 	line = line.substr(line.find_first_not_of(' '));
 	for (int i = 0; i < nbr; i++)
 	{
-		line = line.substr(line.find_last_of(' '));
+		line = line.substr(line.find_first_of(' '));
 		line = line.substr(line.find_first_not_of(' '));
 	}
 	return (line);

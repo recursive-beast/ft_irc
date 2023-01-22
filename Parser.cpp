@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmessaou <mmessaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: syakoubi <syakoubi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:12:56 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/22 16:35:12 by mmessaou         ###   ########.fr       */
+/*   Updated: 2023/01/22 17:06:18 by syakoubi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	_PRIVMSG(std::string line, Server *server, Client *client)
 		if (c_target)
 		{
 			c_target->write(":" + client->nickname + " PRIVMSG " + c_target->nickname
-				+ " :" + skipWords(line, 2) );
+				+ " :" + skipWords(line, 1) + "\n");
 		}
 	}
 	else
