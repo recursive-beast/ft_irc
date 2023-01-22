@@ -21,7 +21,7 @@ class Server {
 		int		accept();
 		void	cleanupClients();
 		//aait-oma part
-		std::map<std::string, std::vector<Channel>>	channels;
+		std::map<std::string, std::vector<Channel> >	channels;
 
 	public:
 		const int				port;

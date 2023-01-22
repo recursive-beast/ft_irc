@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Pars_utils.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmessaou <mmessaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:31:50 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/22 13:30:29 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/22 16:17:36 by mmessaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ void	_Registred(Client *client)
 		client->registred = true;
 }
 
+std::string	skipWords(std::string line, int nbr)
+{
+	line = line.substr(line.find_first_not_of(' '));
+	for (int i = 0; i < nbr; i++)
+	{
+		line = line.substr(line.find_last_of(' '));
+		line = line.substr(line.find_first_not_of(' '));
+	}
+	return (line);
+}
+
+
+// aait-oma
 bool startsWithHash(const std::string &str)
 {
     return str.front() == '#';

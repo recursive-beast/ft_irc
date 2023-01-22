@@ -6,7 +6,7 @@
 
 void	handleLine(std::string line, Server *server, Client *client) {
 	Parser::parseLine(line, server, client);
-	// std::cout << "[" << client->addr << ":" << client->port << "]#" << client->sd << ": line: " << line << std::endl;
+	std::cout << "[" << client->addr << ":" << client->port << "]#" << client->sd << ": line: " << line << std::endl;
 }
 
 void	handleConnect(Server *server, Client *client) {
@@ -42,4 +42,14 @@ int main (int argc, char **argv) {
 	}
 }
 
-
+// int main()
+// {
+// 	std::string	line = "msg target rta fdfdfdfdfdfdfdfdf jhjh hjh jjh jhjh jhjh jh zbi";
+// 	line = line.substr(line.find_first_not_of(' '));
+// 	for (size_t i = 0; i < 3; i++)
+// 	{
+// 		line = line.substr(line.find_first_of(' '));
+// 		line = line.substr(line.find_first_not_of(' '));
+// 	}
+// 	std::cout << line << std::endl;
+// }

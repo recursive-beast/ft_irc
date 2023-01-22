@@ -1,5 +1,6 @@
 #ifndef PARSER_H
 # define PARSER_H
+#define hostname (std::string(":msa057@localhost"))
 
 # include "Server.hpp"
 
@@ -16,6 +17,8 @@ class Parser {
 
 bool		checkNickName(std::string nickName);
 void		_Registred(Client *client);
+std::string	skipWords(std::string line, int nbr);
+
 std::string skipLeadingWhitespaces(const std::string &str);
 bool 		startsWithHash(const std::string &str);
 
