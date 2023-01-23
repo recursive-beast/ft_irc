@@ -34,6 +34,10 @@ class Client {
 		ssize_t		recv();
 		ssize_t		send();
 		void		disconnect();
+		// aait-oma
+		friend bool	operator==(const Client & lhs, const Client & rhs) {
+			return lhs.nickname == rhs.nickname;
+		}
 };
 
 #endif /* CLIENT_H */

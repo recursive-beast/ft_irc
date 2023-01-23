@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakoubi <syakoubi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:12:56 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/22 17:06:18 by syakoubi         ###   ########.fr       */
+/*   Updated: 2023/01/23 21:16:49 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,37 +113,59 @@ void	_PRIVMSG(std::string line, Server *server, Client *client)
 void    _JOIN(std::string line, Server *server, Client *client)
 {
     std::vector<std::string>    tokens;
-    std::string                 _channel;
-
-    tokens = split(line, ",");
-    if (tokens.size() != 0)
+	std::map<std::string, Channel>::iterator	it;
+	std::vector<std::string>	_keys;
+	std::vector<std::string>	_channels;
+	
+    tokens = split(line, " ");
+    if (tokens.size())
     {
-        if (tokens[0] == "0")
-        {
-
-        }
-        else
-        {
-            for (size_t i = 0; i < tokens.size(); i++)
-            {
-                _channel = skipLeadingWhitespaces(tokens[i]);
-                if (startsWithHash(_channel))
-                {
-                    if (server->channelExists(_channel))
-                    {
-                        // server->addUserToChannel(_channel, client);
-                        client->write(client->nickname + " JOIN " + _channel);
-                    }
-                    else
-                    {
-
-                    }
-                }
-            }
-        }
-    }
-	(void) server;
-	(void) client;
+		if (tokens.size() == 2)
+			_channels = split(tokens[1], ",");
+		else
+		{
+			if (tokens[1] == "0")
+			{
+				
+			}
+			else
+			{
+				if (tokens.size() == 3)
+					_keys = split(tokens[2], ",");
+				for (size_t i = 0; i < _channels.size(); i++)
+				{
+					if (startsWith(_channels[i], '#') || startsWith(_channels[i], '&'))
+					{
+						if (startsWith(_channels[i], '&'))
+							changeString(_channels[i]);
+						if (server->channelExists(_channels[i]))
+						{
+							it = server->getMapElement(_channels[i]);
+							if (it->second.alreadyExists(client))
+								client->write("error! alreadyExists");						
+							else if (it->second.getPassword() == _keys[i])
+							{
+								if (it->second.alreadyBanned(client->nickname))
+									client->write("error! alreadyBanned");
+								else{	
+									it->second.join(client);
+									client->write(client->nickname + " JOIN " + _channels[i]);
+								}
+							}
+							else
+								client->write("error! password channel");
+						}
+						else
+						{
+							server->createChannel(_channels[i],
+								Channel(_channels[i], client, i < _keys.size() ? _keys[i] : ""));
+						}
+					}
+				}
+				
+			}	
+		}
+	}
 }
 
 //}

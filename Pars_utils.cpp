@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Pars_utils.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakoubi <syakoubi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:31:50 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/22 17:11:54 by syakoubi         ###   ########.fr       */
+/*   Updated: 2023/01/23 21:13:37 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ std::string	skipWords(std::string line, int nbr)
 
 
 // aait-oma
-bool startsWithHash(const std::string &str)
+bool startsWith(const std::string &str, char c)
 {
-    return str.front() == '#';
+    return str.front() == c;
 }
 
 std::string skipLeadingWhitespaces(const std::string &str)
@@ -59,4 +59,10 @@ std::string skipLeadingWhitespaces(const std::string &str)
     if (firstNonSpace != std::string::npos)
         return str.substr(firstNonSpace);
     return str;
+}
+
+void changeString(std::string& str)
+{
+    if (!str.empty() && str[0] == '&')
+        str[0] = '#';
 }

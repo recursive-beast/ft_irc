@@ -6,7 +6,7 @@
 /*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 10:08:05 by aait-oma          #+#    #+#             */
-/*   Updated: 2023/01/22 15:23:12 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/23 21:10:00 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ private:
     std::string         password;
     std::string         topic;
     std::set<Client *>  members;
+    std::set<std::string>  banned;
     std::set<Client *>  operators;
 public:
     Channel();
+    Channel(std::string _channelName, Client * c, std::string _password);
     Channel(const Channel& other);
     Channel& operator=(const Channel &other);
     ~Channel();
@@ -39,7 +41,6 @@ public:
     std::string getPassword() const;
     std::set<Client *> getMembers() const;
     std::set<Client *> getOperators() const;
-    std::set<Client *> getBanned() const;
     void join(Client *client);
     void leave(Client *client);
     void sendMessage(Client *sender, const std::string &message);
@@ -47,6 +48,9 @@ public:
     void addOperator(Client *operat);
     void removeOperator(Client *operat);
     void kick(Client *client);
+    void ban(std::string nickname);
+    bool alreadyExists(Client * client);
+    bool alreadyBanned(std::string nickname);
 };
 
 #endif

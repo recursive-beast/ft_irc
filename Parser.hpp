@@ -18,8 +18,9 @@ class Parser {
 bool		checkNickName(std::string nickName);
 void		_Registred(Client *client);
 std::string	skipWords(std::string line, int nbr);
-
+//aait-oma part
 std::string skipLeadingWhitespaces(const std::string &str);
-bool 		startsWithHash(const std::string &str);
+bool		startsWith(const std::string &str, char c);
+void 	changeString(std::string& str);
 
 #endif /* PARSER_H */

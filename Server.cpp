@@ -156,11 +156,20 @@ Server::~Server() {
 	close(this->sd);
 }
 
-
 //aait-oma part
 bool	Server::channelExists(std::string _channel)
 {
 	if (channels.find(_channel) != channels.end())
 		return true;
 	return false;
+}
+
+std::map<std::string, Channel>::iterator Server::getMapElement(const std::string& key)
+{
+	return channels.find(key);
+}
+
+void	Server::createChannel(const std::string& key, Channel _channel)
+{
+	channels[key] = _channel;
 }
