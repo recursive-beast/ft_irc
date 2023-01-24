@@ -6,7 +6,7 @@
 /*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:50:25 by aait-oma          #+#    #+#             */
-/*   Updated: 2023/01/23 21:09:30 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:01:39 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,20 @@ void    Channel::removeOperator(Client *operat)
         operators.erase(operat);
 }
 
-bool Channel::alreadyExists(Client * client)
+bool    Channel::alreadyExists(Client * client)
 {
     return members.find(client) != members.end();
 }
-void Channel::ban(std::string nickname)
+void    Channel::ban(std::string nickname)
 {
     banned.insert(nickname);
 }
-bool Channel::alreadyBanned(std::string nickname)
+bool    Channel::alreadyBanned(std::string nickname)
 {
     return banned.find(nickname) != banned.end();
+}
+
+bool    Channel::islocked(void)
+{
+    return password != "" ;
 }

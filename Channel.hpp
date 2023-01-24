@@ -6,7 +6,7 @@
 /*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 10:08:05 by aait-oma          #+#    #+#             */
-/*   Updated: 2023/01/23 21:10:00 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:00:40 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ private:
     std::set<Client *>  operators;
 public:
     Channel();
-    Channel(std::string _channelName, Client * c, std::string _password);
+    Channel(std::string _channelName, Client * c, std::string _password = "");
     Channel(const Channel& other);
     Channel& operator=(const Channel &other);
     ~Channel();
@@ -51,6 +51,7 @@ public:
     void ban(std::string nickname);
     bool alreadyExists(Client * client);
     bool alreadyBanned(std::string nickname);
+    bool islocked(void);
 };
 
 #endif

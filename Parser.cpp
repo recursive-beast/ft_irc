@@ -6,7 +6,7 @@
 /*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:12:56 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/23 21:16:49 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:59:51 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,54 +118,50 @@ void    _JOIN(std::string line, Server *server, Client *client)
 	std::vector<std::string>	_channels;
 	
     tokens = split(line, " ");
-    if (tokens.size())
+    if (tokens.size() <= 3)
     {
-		if (tokens.size() == 2)
-			_channels = split(tokens[1], ",");
-		else
+		_channels = tokens.size() > 1 ? split(tokens[1], ",") : std::vector<std::string>();
+		_keys = tokens.size() > 2 ? split(tokens[2], ",") : std::vector<std::string>();
+		for (size_t i = 0; i < _channels.size();i++)
 		{
-			if (tokens[1] == "0")
+			if (startsWith(_channels[i], '#') || startsWith(_channels[i], '&'))
 			{
-				
-			}
-			else
-			{
-				if (tokens.size() == 3)
-					_keys = split(tokens[2], ",");
-				for (size_t i = 0; i < _channels.size(); i++)
+				if (startsWith(_channels[i], '&'))
+					changeString(_channels[i]);
+				if (!server->channelExists(_channels[i]))
 				{
-					if (startsWith(_channels[i], '#') || startsWith(_channels[i], '&'))
+					server->createChannel(_channels[i], Channel(_channels[i], client, i < _keys.size() ? _keys[i] : ""));
+					client->write(client->nickname + " JOIN " + _channels[i] + "\n");
+					continue ;
+				}
+				it = server->getMapElement(_channels[i]);
+				if (it->second.alreadyBanned(client->nickname))
+					client->write("error! alreadyBanned\n");
+				else if (it->second.alreadyExists(client))
+					client->write("error! alreadyExists\n");
+				if (it->second.islocked())
+				{
+					if (i < _keys.size() && it->second.getPassword() == _keys[i])
 					{
-						if (startsWith(_channels[i], '&'))
-							changeString(_channels[i]);
-						if (server->channelExists(_channels[i]))
-						{
-							it = server->getMapElement(_channels[i]);
-							if (it->second.alreadyExists(client))
-								client->write("error! alreadyExists");						
-							else if (it->second.getPassword() == _keys[i])
-							{
-								if (it->second.alreadyBanned(client->nickname))
-									client->write("error! alreadyBanned");
-								else{	
-									it->second.join(client);
-									client->write(client->nickname + " JOIN " + _channels[i]);
-								}
-							}
-							else
-								client->write("error! password channel");
-						}
-						else
-						{
-							server->createChannel(_channels[i],
-								Channel(_channels[i], client, i < _keys.size() ? _keys[i] : ""));
-						}
+						it->second.join(client);
+						client->write(client->nickname + " JOIN " + _channels[i] + "\n");
+					}
+					else
+						client->write("error! password channel\n");
+				}
+				else {
+					if (i < _keys.size() && _keys[i] != "")
+						client->write("wrong!\n");
+					else{
+						it->second.join(client);
+						client->write(client->nickname + " JOIN " + _channels[i] + "\n");
 					}
 				}
-				
-			}	
-		}
+			}
+		}	
 	}
+	else
+		client->write("error! too much parameter");
 }
 
 //}
