@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Parser.hpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmessaou <mmessaou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/24 10:10:55 by mmessaou          #+#    #+#             */
+/*   Updated: 2023/01/24 10:12:28 by mmessaou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSER_H
 # define PARSER_H
-#define hostname (std::string(":msa057@localhost"))
+# define hostname (std::string(":msa057@localhost"))
 
 # include "Server.hpp"
 
