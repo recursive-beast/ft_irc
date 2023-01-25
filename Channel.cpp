@@ -6,7 +6,7 @@
 /*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:50:25 by aait-oma          #+#    #+#             */
-/*   Updated: 2023/01/24 16:01:39 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/25 18:35:33 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ void    Channel::join(Client *client)
 {
     if (client)
         members.insert(client);
+}
+
+void    Channel::part(Client *client)
+{
+    if (client)
+        members.erase(client);
 }
 
 void    Channel::kick(Client *client)

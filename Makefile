@@ -18,6 +18,7 @@ Pars_utils.cpp\
 Channel.cpp\
 commands/ConnectionRegistration.cpp\
 commands/Messages.cpp\
+commands/ChannelOperations.cpp\
 
 
 MSRC :=
