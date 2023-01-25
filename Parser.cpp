@@ -6,7 +6,7 @@
 /*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:12:56 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/24 15:59:51 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/25 09:32:37 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,9 @@ void    _JOIN(std::string line, Server *server, Client *client)
 	std::vector<std::string>	_channels;
 	
     tokens = split(line, " ");
-    if (tokens.size() <= 3)
+    if (tokens.size() == 1)
+		client->write("ERR_NEEDMOREPARAMS\n");
+	else if (tokens.size() <= 3)
     {
 		_channels = tokens.size() > 1 ? split(tokens[1], ",") : std::vector<std::string>();
 		_keys = tokens.size() > 2 ? split(tokens[2], ",") : std::vector<std::string>();
@@ -136,7 +138,7 @@ void    _JOIN(std::string line, Server *server, Client *client)
 				}
 				it = server->getMapElement(_channels[i]);
 				if (it->second.alreadyBanned(client->nickname))
-					client->write("error! alreadyBanned\n");
+					client->write("ERR_BANNEDFROMCHAN\n");
 				else if (it->second.alreadyExists(client))
 					client->write("error! alreadyExists\n");
 				if (it->second.islocked())
@@ -147,11 +149,11 @@ void    _JOIN(std::string line, Server *server, Client *client)
 						client->write(client->nickname + " JOIN " + _channels[i] + "\n");
 					}
 					else
-						client->write("error! password channel\n");
+						client->write("ERR_BADCHANNELKEY\n");
 				}
 				else {
 					if (i < _keys.size() && _keys[i] != "")
-						client->write("wrong!\n");
+						client->write("ERR_BADCHANNELKEY\n");
 					else{
 						it->second.join(client);
 						client->write(client->nickname + " JOIN " + _channels[i] + "\n");
