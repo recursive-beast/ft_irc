@@ -6,7 +6,7 @@
 /*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:50:25 by aait-oma          #+#    #+#             */
-/*   Updated: 2023/01/25 18:35:33 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/28 21:09:04 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,30 @@ void    Channel::part(Client *client)
         members.erase(client);
 }
 
-void    Channel::kick(Client *client)
+void    Channel::kick(std::string nickname)
 {
-    if (client)
-        members.erase(client);
+    std::set<Client *>::iterator it;
+    if (isOperator(nickname))
+    {
+        it = operators.begin();
+		for (; it != operators.end(); it++)
+		{
+			if ((*it)->nickname == nickname)
+            {
+                removeOperator(*it);
+                break;
+            }
+		}
+    }
+    it = members.begin();
+    for (; it != operators.end(); it++)
+    {
+        if ((*it)->nickname == nickname)
+        {
+            part(*it);
+            break;
+        }
+    }
 }
 
 void    Channel::setTopic(const std::string &topic_) { topic = topic_; }
@@ -92,4 +112,36 @@ bool    Channel::alreadyBanned(std::string nickname)
 bool    Channel::islocked(void)
 {
     return password != "" ;
+}
+
+ bool Channel::isEmpty(void)
+{
+    if (members.empty())
+        return true;
+    return false;
+}
+
+bool	Channel::isMember(std::string nickname)
+{
+    std::set<Client *>::iterator it = members.begin();
+    for (; it != members.end(); it++)
+    {
+        if ((*it)->nickname == nickname)
+            return true;
+    }
+    return false;
+}
+bool	Channel::isOperator(Client *client)
+{
+    return operators.find(client) != operators.end();
+}
+bool	Channel::isOperator(std::string nickname)
+{
+    std::set<Client *>::iterator it = operators.begin();
+    for (; it != operators.end(); it++)
+    {
+        if ((*it)->nickname == nickname)
+            return true;
+    }
+    return false;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Messages.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmessaou <mmessaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:17:18 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/24 13:15:00 by mmessaou         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:39:27 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	_PRIVMSG(std::string line, Server *server, Client *client)
 	{
 		if ((tokens[1][0] == '#' || tokens[1][0] == '&') && server->channelExists(tokens[1]))
 		{
-			chnl_it = server->getMapElement(tokens[1]);
+			chnl_it = server->getChannel(tokens[1]);
 			_members = chnl_it->second.getMembers();
 			if (chnl_it->second.alreadyExists(client) && !chnl_it->second.alreadyBanned(client->nickname))
 			{

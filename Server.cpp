@@ -164,7 +164,7 @@ bool	Server::channelExists(std::string _channel)
 	return false;
 }
 
-std::map<std::string, Channel>::iterator Server::getMapElement(const std::string& key)
+std::map<std::string, Channel>::iterator Server::getChannel(const std::string& key)
 {
 	return channels.find(key);
 }
@@ -172,4 +172,11 @@ std::map<std::string, Channel>::iterator Server::getMapElement(const std::string
 void	Server::createChannel(const std::string& key, Channel _channel)
 {
 	channels[key] = _channel;
+}
+
+void	Server::deleteChannel(std::string _channel)
+{
+	std::map<std::string, Channel>::iterator it = channels.find(_channel);
+	if (it != channels.end())
+		channels.erase(it);
 }

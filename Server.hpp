@@ -37,12 +37,13 @@ class Server {
 		int		setClientNickname(Client *client, std::string nickname);
 		void	poll();
 		//aait-oma
-		const	std::map<std::string, Channel>& getChannels() const{
+		std::map<std::string, Channel>& getChannels(){
 			return this->channels;
 		};
 		bool	channelExists(std::string _channel);
-		std::map<std::string, Channel>::iterator getMapElement(const std::string& key);
+		std::map<std::string, Channel>::iterator getChannel(const std::string& key);
 		void	createChannel(const std::string& key, Channel _channel);
+		void	deleteChannel(std::string _channel);
 };
 
 #endif /* SERVER_H */

@@ -6,7 +6,7 @@
 /*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:12:56 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/25 13:46:01 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:29:08 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	Parser::initCmnds()
 	Parser::commandes["PRIVMSG"] = _PRIVMSG;
 	//aait-oma
 	Parser::commandes["JOIN"] = _JOIN;
-
+	Parser::commandes["PART"] = _PART;
 }
 
 void	Parser::parseLine(std::string line, Server *server, Client *client)
