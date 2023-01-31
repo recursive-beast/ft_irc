@@ -6,7 +6,7 @@
 /*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 09:43:14 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/27 17:28:28 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:07:10 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,6 @@ void	_PRIVMSG(std::string line, Server *server, Client *client);
 //ChannelOperations.cpp
 void    _JOIN(std::string line, Server *server, Client *client);
 void    _PART(std::string line, Server *server, Client *client);
+void	_KICK(std::string line, Server *server, Client *client);
+void    _TOPIC(std::string line, Server *server, Client *client);
 #endif

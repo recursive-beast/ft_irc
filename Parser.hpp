@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmessaou <mmessaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:10:55 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/24 10:12:28 by mmessaou         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:34:37 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ std::string	skipWords(std::string line, int nbr);
 //aait-oma part
 std::string skipLeadingWhitespaces(const std::string &str);
 bool		startsWith(const std::string &str, char c);
-void 	changeString(std::string& str);
-
+void 		changeString(std::string& str);
+bool		isValidChannel(const std::string &s);
 #endif /* PARSER_H */

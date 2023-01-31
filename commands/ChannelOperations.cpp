@@ -6,13 +6,62 @@
 /*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:45:21 by aait-oma          #+#    #+#             */
-/*   Updated: 2023/01/28 21:29:01 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:27:34 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Parser.hpp"
 #include "../utils.hpp"
 #include <iostream>
+#include <string>
+
+struct Message {
+    std::string prefix;
+    std::string command;
+    std::vector<std::string> params;
+};
+
+Message parseMessage(const std::string &msg)
+{
+    Message result;
+    std::string::const_iterator it = msg.begin();
+    if (*it == ':') {
+        ++it;
+        while (it != msg.end() && *it != ' ') {
+            result.prefix += *it;
+            ++it;
+        }
+        ++it;
+    }
+    while (it != msg.end() && *it != ' ') {
+        result.command += *it;
+        ++it;
+    }
+    if (it != msg.end())
+        ++it;
+    std::string current_param;
+    while (it != msg.end()) {
+        if (*it == ':') {
+            ++it;
+            while (it != msg.end()) {
+                current_param += *it;
+                ++it;
+            }
+            result.params.push_back(current_param);
+            break;
+        }
+        else if (*it == ' ') {
+            result.params.push_back(current_param);
+            current_param.clear();
+            ++it;
+        }
+        else {
+            current_param += *it;
+            ++it;
+        }
+    }
+    return result;
+}
 
 void	leaveAll(Server *server, Client *client)
 {
@@ -179,7 +228,49 @@ void	_KICK(std::string line, Server *server, Client *client)
 	}
 }
 
-// void    _TOPIC(std::string line, Server *server, Client *client)
-// {
-    
-// }
+void _TOPIC(std::string line, Server *server, Client *client)
+{
+    Message ms = parseMessage(line);
+	std::vector<std::string>	_channels;
+	std::map<std::string, Channel>::iterator	it;
+	std::string	_comment;
+	
+	if (ms.params.size() >= 1 )
+	{
+		_channels = split(ms.params[0], ",");
+		_comment = ms.params.size() > 1 ? ms.params[1] : NULL;
+		
+		if (ms.params.size() == 1)
+		{
+			if (_channels.size() == 1)
+			{
+				if (server->channelExists(ms.params[0]))
+				{
+					it = server->getChannel(_channels[0]);
+					if (it->second.alreadyExists(client))
+					{
+						if (ms.params.size() == 1)
+						{
+							if (it->second.getTopic() == "")
+								client->write(hostname + " 331 " + client->nickname + " " + _channels[0] + " :No topic is set\n");
+							else
+								client->write(hostname + " 332 " + client->nickname + " " + _channels[0] + " :" + it->second.getTopic() + "\n");
+						}
+						else {
+							it->second.setTopic(_comment);
+							client->write(hostname + " 333 " + client->nickname + " " + _channels[0] + " :"+ _comment +"\n");
+						}
+					}
+					else
+						client->write(hostname + " 332 " + client->nickname + " " + _channels[0] + " :" + it->second.getTopic() + "\n");
+				}
+				else
+					client->write(hostname + " 403 " + client->nickname + " " + _channels[0] + " :No such channel\n");
+			}
+			else
+				client->write(hostname + " 403 " + client->nickname + " " + _channels[0] + " :No such channel\n");
+		}
+	}
+	else
+		client->write(hostname + " 461 " + "PASS :Not enough parameters\n");
+}

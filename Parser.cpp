@@ -6,7 +6,7 @@
 /*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:12:56 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/27 17:29:08 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:10:24 by aait-oma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	Parser::initCmnds()
 	//aait-oma
 	Parser::commandes["JOIN"] = _JOIN;
 	Parser::commandes["PART"] = _PART;
+	Parser::commandes["KICK"] = _KICK;
+	Parser::commandes["TOPIC"] = _TOPIC;
 }
 
 void	Parser::parseLine(std::string line, Server *server, Client *client)
