@@ -98,7 +98,7 @@ void	Server::cleanupClients() {
 	for (size_t i = 1; i < this->pollfds.size(); i++)
 	{
 		client = this->getClient(this->pollfds[i].fd);
-		if (client->connected)
+		if (client->isConnected())
 			continue;
 		this->clientsByNickname.erase(client->nickname);
 		this->clientsBySD.erase(client->sd);
@@ -126,7 +126,7 @@ void	Server::poll() {
 		for (size_t i = 1; i < this->pollfds.size(); i++) {
 			client = this->getClient(this->pollfds[i].fd);
 			revents = this->pollfds[i].revents;
-			if (!client->connected)
+			if (!client->isConnected())
 				continue;
 			if (revents & (POLLERR | POLLHUP)) {
 				client->disconnect();
@@ -136,9 +136,9 @@ void	Server::poll() {
 				client->disconnect();
 				continue;
 			}
-			while (client->connected && this->onLine && client->hasLine())
+			while (client->isConnected() && this->onLine && client->hasLine())
 				this->onLine(client->getline(), this, client);
-			if (client->connected && (revents & POLLOUT) && client->send() < 0)
+			if (client->isConnected() && (revents & POLLOUT) && client->send() < 0)
 				client->disconnect();
 		}
 		this->cleanupClients();

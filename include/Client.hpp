@@ -10,12 +10,12 @@ class Client {
 	private:
 		std::string	recv_buffer;
 		std::string	send_buffer;
+		bool		connected;
 
 	public:
 		const int			sd;
 		const int			port;
 		const std::string	addr;
-		bool				connected;
 		std::string			nickname;
 
 		Client(int sd, int port, std::string addr);
@@ -27,6 +27,7 @@ class Client {
 		ssize_t		recv();
 		ssize_t		send();
 		void		disconnect();
+		bool		isConnected();
 };
 
 #endif /* CLIENT_HPP */
