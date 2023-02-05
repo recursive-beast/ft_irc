@@ -1,3 +1,5 @@
+#ifndef CLIENT_HPP
+#define CLIENT_HPP
 #ifndef CLIENT_H
 # define CLIENT_H
 
@@ -30,3 +32,6 @@ class Client {
 };
 
 #endif /* CLIENT_H */
+
+
+#endif /* CLIENT_HPP */

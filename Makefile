@@ -1,6 +1,7 @@
 OS := $(shell uname)
 CXX := c++
-CXXFLAGS = -Wall -Wextra -Werror
+INCLUDES := -I include
+CXXFLAGS = $(INCLUDES) -Wall -Wextra -Werror
 OUTDIR := .build
 NAME := ircserv
 
