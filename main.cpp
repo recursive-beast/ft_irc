@@ -1,12 +1,15 @@
 #include "Server.hpp"
+#include "commands.hpp"
 #include <vector>
 #include <poll.h>
 #include <iostream>
 
 void	handleLine(std::string line, Server *server, Client *client) {
-	(void)server;
-	client->write(line + "\n");
+	Message	msg;
+
 	std::cout << "[" << client->addr << ":" << client->port << "]#" << client->sd << ": line: " << line << std::endl;
+	msg = parseMessage(line);
+	Dispatcher::dispatch(msg, server, client);
 }
 
 void	handleConnect(Server *server, Client *client) {

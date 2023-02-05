@@ -13,6 +13,8 @@ SRC := main.cpp\
 Server.cpp\
 Client.cpp\
 utils.cpp\
+parseMessage.cpp\
+Dispatcher.cpp\
 
 MSRC :=
 
