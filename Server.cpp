@@ -59,7 +59,7 @@ Client	*Server::getClient(std::string nickname) {
 	return (it->second);
 }
 
-int	Server::setClientNickname(Client *client, std::string nickname) {
+int	Server::setNickname(Client *client, std::string nickname) {
 	if (nickname.length() == 0)
 		throw std::runtime_error("nickname should not be empty");
 	if (this->getClient(nickname))

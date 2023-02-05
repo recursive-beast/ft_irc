@@ -33,7 +33,7 @@ class Server {
 
 		Client	*getClient(int sd);
 		Client	*getClient(std::string nickname);
-		int		setClientNickname(Client *client, std::string nickname);
+		int		setNickname(Client *client, std::string nickname);
 		void	poll();
 };
 
