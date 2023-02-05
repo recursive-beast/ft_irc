@@ -1,7 +1,5 @@
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
-#ifndef CLIENT_H
-# define CLIENT_H
 
 # include <string>
 # include <sys/types.h>
@@ -30,8 +28,5 @@ class Client {
 		ssize_t		send();
 		void		disconnect();
 };
-
-#endif /* CLIENT_H */
-
 
 #endif /* CLIENT_HPP */
