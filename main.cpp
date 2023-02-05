@@ -35,8 +35,8 @@ int main (int argc, char **argv) {
 		return (0);
 	}
 	catch(const std::exception& e) {
-		std::cerr << e.what() << std::endl;
 		delete server;
+		std::cerr << "Error\n" << e.what() << std::endl;
 		return (1);
 	}
 }
