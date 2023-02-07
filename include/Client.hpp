@@ -27,7 +27,7 @@ class Client {
 		ssize_t		recv();
 		ssize_t		send();
 		void		disconnect();
-		bool		isConnected();
+		bool		isConnected() const;
 };
 
 #endif /* CLIENT_HPP */

@@ -66,6 +66,10 @@ void	Client::disconnect() {
 	}
 }
 
+bool	Client::isConnected() const {
+	return (this->connected);
+}
+
 Client::~Client() {
 	this->disconnect();
 }
