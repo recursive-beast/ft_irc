@@ -41,8 +41,8 @@ Server::Server(int port, std::string password): port(port), password(password), 
 	});
 }
 
-Client	*Server::getClient(int sd) {
-	std::map<int, Client *>::iterator	it;
+Client	*Server::getClient(int sd) const {
+	std::map<int, Client *>::const_iterator	it;
 
 	it = this->clientsBySD.find(sd);
 	if (it == this->clientsBySD.end())
@@ -50,24 +50,13 @@ Client	*Server::getClient(int sd) {
 	return (it->second);
 }
 
-Client	*Server::getClient(std::string nickname) {
-	std::map<std::string, Client *>::iterator	it;
+Client	*Server::getClient(std::string nickname) const {
+	std::map<std::string, Client *>::const_iterator	it;
 
 	it = this->clientsByNickname.find(nickname);
 	if (it == this->clientsByNickname.end())
 		return (NULL);
 	return (it->second);
-}
-
-int	Server::setNickname(Client *client, std::string nickname) {
-	if (nickname.length() == 0)
-		throw std::runtime_error("nickname should not be empty");
-	if (this->getClient(nickname))
-		return (-1);
-	this->clientsByNickname.erase(client->nickname);
-	this->clientsByNickname[nickname] = client;
-	client->nickname = nickname;
-	return (0);
 }
 
 int	Server::accept() {
@@ -79,7 +68,7 @@ int	Server::accept() {
 	len = sizeof(addr);
 	client_sd = ::accept(this->sd, (sockaddr *)&addr, &len);
 	if (client_sd != -1) {
-		client = new Client(client_sd, ntohs(addr.sin_port), inet_ntoa(addr.sin_addr));
+		client = new Client(this, client_sd, ntohs(addr.sin_port), inet_ntoa(addr.sin_addr));
 		this->clientsBySD[client_sd] = client;
 		this->pollfds.push_back((pollfd){
 			.fd = client_sd,
@@ -100,7 +89,7 @@ void	Server::cleanupClients() {
 		client = this->getClient(this->pollfds[i].fd);
 		if (client->isConnected())
 			continue;
-		this->clientsByNickname.erase(client->nickname);
+		this->clientsByNickname.erase(client->getNickname());
 		this->clientsBySD.erase(client->sd);
 		this->pollfds.erase(this->pollfds.begin() + i);
 		if (this->onDisconnect)

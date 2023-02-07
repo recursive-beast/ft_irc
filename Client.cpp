@@ -1,3 +1,4 @@
+#include "Server.hpp"
 #include "Client.hpp"
 #include "utils.hpp"
 #include <vector>
@@ -7,7 +8,7 @@
 #include <unistd.h>
 #include <stdexcept>
 
-Client::Client(int sd, int port, std::string addr): sd(sd), port(port), addr(addr) {
+Client::Client(Server *server, int sd, int port, std::string addr): server(server), sd(sd), port(port), addr(addr) {
 	this->connected = true;
 }
 
@@ -68,6 +69,19 @@ void	Client::disconnect() {
 
 bool	Client::isConnected() const {
 	return (this->connected);
+}
+
+std::string	Client::getNickname() const {
+	return (this->nickname);
+}
+
+int	Client::setNickname(std::string nickname) {
+	if (this->server->getClient(nickname))
+		return (-1);
+	this->server->clientsByNickname.erase(this->nickname);
+	this->server->clientsByNickname[nickname] = this;
+	this->nickname = nickname;
+	return (0);
 }
 
 Client::~Client() {

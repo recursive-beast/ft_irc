@@ -12,6 +12,8 @@ class Server {
 	typedef void (*t_connect_handler)(Server *, Client *);
 	typedef void (*t_disconnect_handler)(Server *, Client *);
 
+	friend class Client;
+
 	private:
 		std::map<int, Client *>			clientsBySD;
 		std::map<std::string, Client *>	clientsByNickname;
@@ -31,9 +33,8 @@ class Server {
 		Server(int port, std::string password);
 		~Server();
 
-		Client	*getClient(int sd);
-		Client	*getClient(std::string nickname);
-		int		setNickname(Client *client, std::string nickname);
+		Client	*getClient(int sd) const;
+		Client	*getClient(std::string nickname) const;
 		void	poll();
 };
 

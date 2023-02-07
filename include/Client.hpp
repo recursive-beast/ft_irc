@@ -6,19 +6,22 @@
 
 # define RECV_BUFFER_SIZE	(512)
 
+class Server;
+
 class Client {
 	private:
 		std::string	recv_buffer;
 		std::string	send_buffer;
 		bool		connected;
+		std::string	nickname;
 
 	public:
+		Server *const		server;
 		const int			sd;
 		const int			port;
 		const std::string	addr;
-		std::string			nickname;
 
-		Client(int sd, int port, std::string addr);
+		Client(Server *server, int sd, int port, std::string addr);
 		~Client();
 
 		std::string	getline();
@@ -28,6 +31,8 @@ class Client {
 		ssize_t		send();
 		void		disconnect();
 		bool		isConnected() const;
+		std::string	getNickname() const;
+		int			setNickname(std::string nickname);
 };
 
 #endif /* CLIENT_HPP */
