@@ -15,15 +15,15 @@ struct Message
 
 Message	parseMessage(std::string msg);
 
+typedef void (*t_cmd_handler)(Message msg, Server *server, Client *client);
+
 class Dispatcher
 {
 	public:
-		typedef void (*t_handler)(Message msg, Server *server, Client *client);
-
 		static bool	dispatch(Message msg, Server *server, Client *client);
 
 	private:
-		static void	init(std::map<std::string, t_handler> &handlers);
+		static void	init(std::map<std::string, t_cmd_handler> &handlers);
 };
 
 #endif /* COMMANDS_HPP */
