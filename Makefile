@@ -14,6 +14,7 @@ Server.cpp\
 Client.cpp\
 utils.cpp\
 parseMessage.cpp\
+validation.cpp\
 Dispatcher.cpp\
 
 MSRC :=
