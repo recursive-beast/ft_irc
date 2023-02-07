@@ -1,4 +1,5 @@
 #include "commands.hpp"
+#include "replies.hpp"
 
 void	Dispatcher::init(std::map<std::string, t_cmd_handler> &handlers) {
 	(void)handlers;
@@ -7,7 +8,8 @@ void	Dispatcher::init(std::map<std::string, t_cmd_handler> &handlers) {
 bool	Dispatcher::dispatch(Message msg, Server *server, Client *client) {
 	static std::map<std::string, t_cmd_handler>				handlers;
 	static std::map<std::string, t_cmd_handler>::iterator	it;
-	static bool														initialized = false;
+	static bool												initialized = false;
+	std::string												reply;
 
 	if (!initialized) {
 		Dispatcher::init(handlers);
@@ -16,6 +18,8 @@ bool	Dispatcher::dispatch(Message msg, Server *server, Client *client) {
 	it = handlers.find(msg.cmd);
 	if (it == handlers.end())
 		return (false);
-	it->second(msg, server, client);
+	reply = it->second(msg, server, client);
+	if (reply != NO_REPLY())
+		client->write(reply);
 	return (true);
 }

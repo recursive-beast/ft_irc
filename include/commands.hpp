@@ -15,7 +15,7 @@ struct Message
 
 Message	parseMessage(std::string msg);
 
-typedef void (*t_cmd_handler)(Message msg, Server *server, Client *client);
+typedef std::string	(*t_cmd_handler)(Message msg, Server *server, Client *client);
 
 class Dispatcher
 {
