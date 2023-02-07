@@ -33,8 +33,8 @@ class Server {
 		Server(int port, std::string password);
 		~Server();
 
-		Client	*getClient(int sd) const;
-		Client	*getClient(std::string nickname) const;
+		Client	*getClient(int sd, bool registered = true) const;
+		Client	*getClient(std::string nickname, bool registered = true) const;
 		void	poll();
 };
 

@@ -41,20 +41,24 @@ Server::Server(int port, std::string password): port(port), password(password), 
 	});
 }
 
-Client	*Server::getClient(int sd) const {
+Client	*Server::getClient(int sd, bool registered) const {
 	std::map<int, Client *>::const_iterator	it;
 
 	it = this->clientsBySD.find(sd);
 	if (it == this->clientsBySD.end())
 		return (NULL);
+	if (registered && !it->second->registered)
+		return (NULL);
 	return (it->second);
 }
 
-Client	*Server::getClient(std::string nickname) const {
+Client	*Server::getClient(std::string nickname, bool registered) const {
 	std::map<std::string, Client *>::const_iterator	it;
 
 	it = this->clientsByNickname.find(nickname);
 	if (it == this->clientsByNickname.end())
+		return (NULL);
+	if (registered && !it->second->registered)
 		return (NULL);
 	return (it->second);
 }
@@ -86,7 +90,7 @@ void	Server::cleanupClients() {
 
 	for (size_t i = 1; i < this->pollfds.size(); i++)
 	{
-		client = this->getClient(this->pollfds[i].fd);
+		client = this->getClient(this->pollfds[i].fd, false);
 		if (client->isConnected())
 			continue;
 		this->clientsByNickname.erase(client->getNickname());
@@ -113,7 +117,7 @@ void	Server::poll() {
 		if ((this->pollfds[0].revents & POLLIN) && this->accept() == -1)
 			perror("accept");
 		for (size_t i = 1; i < this->pollfds.size(); i++) {
-			client = this->getClient(this->pollfds[i].fd);
+			client = this->getClient(this->pollfds[i].fd, false);
 			revents = this->pollfds[i].revents;
 			if (!client->isConnected())
 				continue;

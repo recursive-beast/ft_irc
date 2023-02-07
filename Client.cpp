@@ -10,6 +10,7 @@
 
 Client::Client(Server *server, int sd, int port, std::string addr): server(server), sd(sd), port(port), addr(addr) {
 	this->connected = true;
+	this->registered = false;
 }
 
 std::string	Client::getline() {
@@ -76,7 +77,7 @@ std::string	Client::getNickname() const {
 }
 
 int	Client::setNickname(std::string nickname) {
-	if (this->server->getClient(nickname))
+	if (this->server->getClient(nickname, false))
 		return (-1);
 	this->server->clientsByNickname.erase(this->nickname);
 	this->server->clientsByNickname[nickname] = this;
