@@ -2,7 +2,7 @@
 #include "replies.hpp"
 
 void	Dispatcher::init(std::map<std::string, t_cmd_handler> &handlers) {
-	(void)handlers;
+	handlers["PASS"] = PASS;
 }
 
 bool	Dispatcher::dispatch(Message msg, Server *server, Client *client) {

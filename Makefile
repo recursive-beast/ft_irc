@@ -17,6 +17,7 @@ parseMessage.cpp\
 validation.cpp\
 replies.cpp\
 Dispatcher.cpp\
+commands/PASS.cpp\
 
 MSRC :=
 

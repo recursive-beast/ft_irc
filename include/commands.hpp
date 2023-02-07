@@ -26,4 +26,6 @@ class Dispatcher
 		static void	init(std::map<std::string, t_cmd_handler> &handlers);
 };
 
+std::string	PASS(Message msg, Server *server, Client *client);
+
 #endif /* COMMANDS_HPP */

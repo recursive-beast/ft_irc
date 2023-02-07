@@ -21,6 +21,7 @@ class Client {
 		const int			port;
 		const std::string	addr;
 		bool				registered;
+		std::string			password;
 
 		Client(Server *server, int sd, int port, std::string addr);
 		~Client();
