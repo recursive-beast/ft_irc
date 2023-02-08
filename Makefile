@@ -1,7 +1,8 @@
 OS := $(shell uname)
 CXX := c++
+DEFINES := -D HOSTNAME=\"$(shell hostname)\"
 INCLUDES := -I include
-CXXFLAGS = $(INCLUDES) -Wall -Wextra -Werror
+CXXFLAGS = $(DEFINES) $(INCLUDES) -Wall -Wextra -Werror
 OUTDIR := .build
 NAME := ircserv
 
