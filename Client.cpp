@@ -77,8 +77,14 @@ std::string	Client::getNickname() const {
 }
 
 int	Client::setNickname(std::string nickname) {
-	if (this->server->getClient(nickname, false))
+	Client	*client;
+
+	client = this->server->getClient(nickname, false);
+	if (client) {
+		if (client == this)
+			return (1);
 		return (-1);
+	}
 	this->server->clientsByNickname.erase(this->nickname);
 	this->server->clientsByNickname[nickname] = this;
 	this->nickname = nickname;
