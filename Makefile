@@ -19,6 +19,7 @@ validation.cpp\
 replies.cpp\
 Dispatcher.cpp\
 commands/PASS.cpp\
+commands/NICK.cpp\
 
 MSRC :=
 
