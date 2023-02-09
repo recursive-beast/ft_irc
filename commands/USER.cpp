@@ -4,13 +4,13 @@
 
 std::string	USER(Message msg, Server *server, Client *client) {
 	if (client->registered)
-		return (ERR_ALREADYREGISTRED(client->getNickname()));
+		return (ERR_ALREADYREGISTRED(client));
 	if (msg.params.size() < 4 || msg.params[3].length() == 0)
-		return (ERR_NEEDMOREPARAMS(client->getNickname(), msg.cmd));
+		return (ERR_NEEDMOREPARAMS(client, msg.cmd));
 	if (!isuser(msg.params[0]))
-		return (ERR_ERRONEUSUSERNAME(client->getNickname(), msg.cmd));
+		return (ERR_ERRONEUSUSERNAME(client, msg.cmd));
 	if (server->password != client->password)
-		return (ERR_PASSWDMISMATCH(client->getNickname()));
+		return (ERR_PASSWDMISMATCH(client));
 	client->username = msg.params[0];
 	client->realname = msg.params[3];
 	client->registered = true;
