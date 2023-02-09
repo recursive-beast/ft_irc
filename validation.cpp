@@ -42,7 +42,7 @@ bool	ismsgto(const std::string &s) {
 }
 
 bool	ischannel(const std::string &s) {
-	if (s.empty() || (s[0] != '#' && s[0] != '+' && s[0] != '&'))
+	if (s.empty() || s[0] != '#')
 		return (false);
 	return (ischanstring(s.substr(1)));
 }
