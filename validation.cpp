@@ -81,6 +81,8 @@ bool	isnickname(const std::string &s) {
 bool	ischanstring(const std::string &s) {
 	unsigned char	c;
 
+	if (s.empty())
+		return (false);
 	for (size_t i = 0; i < s.length(); i++) {
 		c = s[i];
 		if (!((c >= 0x01 && c <= 0x07)
