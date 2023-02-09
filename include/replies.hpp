@@ -17,5 +17,6 @@ std::string	ERR_ERRONEUSNICKNAME(Client *client, std::string nick);
 std::string	ERR_ERRONEUSUSERNAME(Client *client, std::string cmd);
 std::string	ERR_PASSWDMISMATCH(Client *client);
 std::string	RPL_WELCOME(Client *client);
+std::string	ERR_NOTREGISTERED(Client *client, std::string cmd);
 
 #endif /* REPLIES_HPP */
