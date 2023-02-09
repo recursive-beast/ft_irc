@@ -59,7 +59,7 @@ bool	isshortname(const std::string &s) {
 		return (false);
 	if (!std::isalpha(s[0]) && !std::isdigit(s[0]))
 		return (false);
-	for (size_t i = 1; i < s.size(); ++i) {
+	for (size_t i = 1; i < s.length(); ++i) {
 		if (!std::isalpha(s[i]) && !std::isdigit(s[i]) && s[i] != '-')
 			return (false);
 	}
@@ -67,11 +67,11 @@ bool	isshortname(const std::string &s) {
 }
 
 bool	isnickname(const std::string &s) {
-	if (s.empty() || s.size() > 8)
+	if (s.empty() || s.length() > 8)
 		return (false);
 	if (!std::isalpha(s[0]) && !isspecial(s[0]))
 		return (false);
-	for (size_t i = 1; i < s.size(); ++i) {
+	for (size_t i = 1; i < s.length(); ++i) {
 		if (!std::isalpha(s[i]) && !std::isdigit(s[i]) && !isspecial(s[i]) && s[i] != '-')
 			return (false);
 	}
