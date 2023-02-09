@@ -35,3 +35,15 @@ std::string	ERR_NICKNAMEINUSE(std::string receiver, std::string nick) {
 std::string	ERR_ERRONEUSNICKNAME(std::string receiver, std::string nick) {
 	return (REPLY("432", receiver, nick + " :Erroneous nickname"));
 }
+
+std::string	ERR_ERRONEUSUSERNAME(std::string receiver, std::string cmd) {
+	return (REPLY("468", receiver, cmd + " :Your username is not valid"));
+}
+
+std::string	ERR_PASSWDMISMATCH(std::string receiver) {
+	return (REPLY("464", receiver, ":Password incorrect"));
+}
+
+std::string	RPL_WELCOME(Client *client) {
+	return (REPLY("001", client->getNickname(), ":Welcome to the Internet Relay Network " + client->getNickname() + "!" + client->username + "@" + client->addr));
+}
