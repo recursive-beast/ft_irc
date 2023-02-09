@@ -82,7 +82,7 @@ int	Client::setNickname(std::string nickname) {
 	client = this->server->getClient(nickname, false);
 	if (client) {
 		if (client == this)
-			return (1);
+			return (0);
 		return (-1);
 	}
 	this->server->clientsByNickname.erase(this->nickname);
