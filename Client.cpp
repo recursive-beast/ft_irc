@@ -79,7 +79,7 @@ std::string	Client::getNickname() const {
 bool	Client::setNickname(std::string nickname) {
 	Client	*client;
 
-	client = this->server->getClient(nickname, false);
+	client = this->server->getClient(nickname);
 	if (client) {
 		if (client == this)
 			return (true);
