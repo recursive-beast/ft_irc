@@ -91,6 +91,10 @@ bool	Client::setNickname(std::string nickname) {
 	return (true);
 }
 
+std::string	Client::getMask() {
+	return (this->nickname + "!" + this->username + "@" + this->addr);
+}
+
 Client::~Client() {
 	this->disconnect();
 }

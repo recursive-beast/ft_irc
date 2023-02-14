@@ -138,6 +138,15 @@ void	Server::poll() {
 	}
 }
 
+void	Server::broadcast(std::string s) {
+	std::map<std::string, Client *>::iterator it;
+
+	for (it = this->clientsByNickname.begin(); it != this->clientsByNickname.end(); it++) {
+		if (it->second->registered)
+			it->second->write(s);
+	}
+}
+
 Server::~Server() {
 	std::map<int, Client *>::iterator it;
 

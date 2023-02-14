@@ -53,9 +53,13 @@ std::string	ERR_PASSWDMISMATCH(Client *client) {
 }
 
 std::string	RPL_WELCOME(Client *client) {
-	return (REPLY("001", client, ":Welcome to the Internet Relay Network " + client->getNickname() + "!" + client->username + "@" + client->addr));
+	return (REPLY("001", client, ":Welcome to the Internet Relay Network " + client->getMask()));
 }
 
 std::string	ERR_NOTREGISTERED(Client *client, std::string cmd) {
 	return (REPLY("451", client, cmd + " :You have not registered"));
+}
+
+std::string	NICK_CHANGE(Client *client, std::string newnick) {
+	return (client->getMask() + " NICK :" + newnick + "\r\n");
 }

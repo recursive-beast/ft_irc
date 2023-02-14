@@ -37,6 +37,7 @@ class Client {
 		bool		isConnected() const;
 		std::string	getNickname() const;
 		bool		setNickname(std::string nickname);
+		std::string	getMask();
 };
 
 #endif /* CLIENT_HPP */

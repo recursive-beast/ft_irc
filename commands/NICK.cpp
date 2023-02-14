@@ -2,7 +2,7 @@
 #include "commands.hpp"
 #include "validation.hpp"
 
-std::string	NICK(Message msg, Server *, Client *client) {
+std::string	NICK(Message msg, Server *server, Client *client) {
 	std::string	nick;
 
 	if (msg.params.size() < 1)
@@ -10,7 +10,10 @@ std::string	NICK(Message msg, Server *, Client *client) {
 	nick = msg.params[0];
 	if (!isnickname(nick))
 		return (ERR_ERRONEUSNICKNAME(client, nick));
-	if (client->setNickname(nick))
-		return (NO_REPLY());
-	return (ERR_NICKNAMEINUSE(client, nick));
+	if (server->getClient(nick, false))
+		return (ERR_NICKNAMEINUSE(client, nick));
+	if (client->registered)
+		server->broadcast(NICK_CHANGE(client, nick));
+	client->setNickname(nick);
+	return (NO_REPLY());
 }

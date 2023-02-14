@@ -35,6 +35,7 @@ class Server {
 
 		Client	*getClient(int sd, bool registered = true) const;
 		Client	*getClient(std::string nickname, bool registered = true) const;
+		void	broadcast(std::string s);
 		void	poll();
 };
 
