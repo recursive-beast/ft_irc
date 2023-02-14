@@ -16,7 +16,7 @@ bool	iskey(const std::string &s) {
 			|| (s[i] >= 7 && s[i] <= 8)
 			|| s[i] == 0x0C
 			|| (s[i] >= 0x0E && s[i] <= 0x1F)
-			|| (s[i] >= 0x21 && s[i] <= 0x7F)))
+			|| s[i] >= 0x21))
 			return (false);
 	}
 	return (true);
@@ -79,7 +79,7 @@ bool	isnickname(const std::string &s) {
 }
 
 bool	ischanstring(const std::string &s) {
-	unsigned char	c;
+	char	c;
 
 	if (s.empty())
 		return (false);
@@ -91,7 +91,7 @@ bool	ischanstring(const std::string &s) {
 		|| (c >= 0x0E && c <= 0x1F)
 		|| (c >= 0x21 && c <= 0x2B)
 		|| (c >= 0x2D && c <= 0x39)
-		|| (c >= 0x3B && c <= 0xFF)))
+		|| c >= 0x3B))
 			return (false);
 	}
 	return (true);

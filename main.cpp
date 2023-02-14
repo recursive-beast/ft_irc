@@ -4,6 +4,7 @@
 #include <vector>
 #include <poll.h>
 #include <iostream>
+#include <signal.h>
 
 void	handleLine(std::string line, Server *server, Client *client) {
 	Message	msg;
