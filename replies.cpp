@@ -69,8 +69,8 @@ std::string	ERR_NOSUCHCHANNEL(Client *client, std::string channel) {
 	return (REPLY("403", client, channel + " :No such channel"));
 }
 
-std::string	ERR_NOTONCHANNEL(Client *client, std::string channel) {
-	return (REPLY("442", client, channel + " :You're not on that channel"));
+std::string	ERR_NOTONCHANNEL(Client *client, Channel *channel) {
+	return (REPLY("442", client, channel->name + " :You're not on that channel"));
 }
 
 std::string	MSG_PART(Client *client, Channel *channel, std::string message = "") {

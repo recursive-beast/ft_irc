@@ -12,7 +12,7 @@ static std::string	forEach(Message msg, Server *server, Client *client, std::str
 	if (!channel)
 		return (ERR_NOSUCHCHANNEL(client, name));
 	if (!channel->isOn(client))
-		return (ERR_NOTONCHANNEL(client, name));
+		return (ERR_NOTONCHANNEL(client, channel));
 	if (msg.params.size() > 2)
 		channel->broadcast(MSG_PART(client, channel, msg.params[1]));
 	else
