@@ -18,6 +18,7 @@ parseMessage.cpp\
 validation.cpp\
 replies.cpp\
 Dispatcher.cpp\
+Channel.cpp\
 commands/PASS.cpp\
 commands/NICK.cpp\
 commands/USER.cpp\

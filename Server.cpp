@@ -1,5 +1,6 @@
 #include "Server.hpp"
 #include "Client.hpp"
+#include "Channel.hpp"
 #include "utils.hpp"
 #include <sys/socket.h>
 #include <string>
@@ -141,6 +142,29 @@ void	Server::broadcast(std::string s) {
 		if (it->second->registered)
 			it->second->write(s);
 	}
+}
+
+Channel	*Server::createChannel(std::string name, Client *creator) {
+	if (this->channels.count(name))
+		return (NULL);
+	this->channels[name] = new Channel(this, name, creator);
+	return (this->channels[name]);
+}
+
+Channel	*Server::getChannel(std::string name) {
+	if (this->channels.count(name))
+		return (this->channels[name]);
+	return (NULL);
+}
+
+std::vector<Channel *>	Server::getChannels() {
+	std::vector<Channel *>	list;
+	std::map<std::string, Channel *>::iterator it;
+
+	for (it = this->channels.begin(); it != this->channels.end(); it++) {
+		list.push_back(it->second);
+	}
+	return (list);
 }
 
 Server::~Server() {
