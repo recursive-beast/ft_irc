@@ -1,4 +1,5 @@
 #include "Client.hpp"
+#include "Channel.hpp"
 #include <string>
 
 std::string	NO_REPLY() {
@@ -62,4 +63,18 @@ std::string	ERR_NOTREGISTERED(Client *client, std::string cmd) {
 
 std::string	MSG_NICK_CHANGE(Client *client, std::string newnick) {
 	return (client->getMask() + " NICK :" + newnick + "\r\n");
+}
+
+std::string	ERR_NOSUCHCHANNEL(Client *client, std::string channel) {
+	return (REPLY("403", client, channel + " :No such channel"));
+}
+
+std::string	ERR_NOTONCHANNEL(Client *client, std::string channel) {
+	return (REPLY("442", client, channel + " :You're not on that channel"));
+}
+
+std::string	MSG_PART(Client *client, Channel *channel, std::string message = "") {
+	if (message.length() == 0)
+		message = client->getNickname();
+	return (client->getMask() + " PART " + channel->name + " :" + message + "\r\n");
 }

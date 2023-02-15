@@ -2,6 +2,7 @@
 # define REPLIES_HPP
 
 # include "Client.hpp"
+# include "Channel.hpp"
 # include <string>
 
 std::string	NO_REPLY();
@@ -19,5 +20,8 @@ std::string	ERR_PASSWDMISMATCH(Client *client);
 std::string	RPL_WELCOME(Client *client);
 std::string	ERR_NOTREGISTERED(Client *client, std::string cmd);
 std::string	MSG_NICK_CHANGE(Client *client, std::string newnick);
+std::string	ERR_NOSUCHCHANNEL(Client *client, std::string channel);
+std::string	ERR_NOTONCHANNEL(Client *client, std::string channel);
+std::string	MSG_PART(Client *client, Channel *channel, std::string message = "");
 
 #endif /* REPLIES_HPP */

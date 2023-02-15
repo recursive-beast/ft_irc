@@ -22,6 +22,7 @@ Channel.cpp\
 commands/PASS.cpp\
 commands/NICK.cpp\
 commands/USER.cpp\
+commands/PART.cpp\
 
 MSRC :=
 

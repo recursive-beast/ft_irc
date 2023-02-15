@@ -28,6 +28,7 @@ class Dispatcher
 
 std::string	PASS(Message msg, Server *server, Client *client);
 std::string	NICK(Message msg, Server *server, Client *client);
-std::string	USER(Message msg, Server *, Client *client);
+std::string	USER(Message msg, Server *server, Client *client);
+std::string	PART(Message msg, Server *server, Client *client);
 
 #endif /* COMMANDS_HPP */
