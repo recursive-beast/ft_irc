@@ -39,7 +39,7 @@ class Channel
 		void					broadcast(std::string message);
 		bool					join(Client *client);
 		bool					part(Client *client);
-		Client					*get(std::string nickname);
+		Client					*getMember(std::string nickname);
 		std::vector<Client *>	getMembers();
 		void					invite(Client *client);
 		bool					isInvited(Client *client);

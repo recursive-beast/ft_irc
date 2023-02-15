@@ -34,7 +34,7 @@ bool	Channel::part(Client *client) {
 	return (true);
 }
 
-Client	*Channel::get(std::string nickname) {
+Client	*Channel::getMember(std::string nickname) {
 	std::map<Client *, std::set<char> >::iterator	it;
 
 	for (it = this->members.begin(); it != this->members.end(); it++) {
