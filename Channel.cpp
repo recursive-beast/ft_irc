@@ -54,6 +54,10 @@ std::vector<Client *>	Channel::getMembers() {
 	return (keys);
 }
 
+bool	Channel::isOn(Client *client) {
+	return (this->members.count(client) == 1);
+}
+
 void	Channel::invite(Client *client) {
 	this->inviteList.insert(client->getNickname());
 }
