@@ -26,18 +26,18 @@ bool	isspecial(const char &c) {
 	return (c >= '[' && c <= '`') || (c >= '_' && c <= '}');
 }
 
-bool	ismsgtarget(const std::string &s) {
+bool	istargetlist(const std::string &s) {
 	size_t	pos;
 
 	if (s.empty())
 		return (false);
 	pos = s.find(",");
 	if (pos == std::string::npos)
-		return (ismsgto(s));
-	return (ismsgto(s.substr(0, pos)) && ismsgtarget(s.substr(pos + 1)));
+		return (istarget(s));
+	return (istarget(s.substr(0, pos)) && istargetlist(s.substr(pos + 1)));
 }
 
-bool	ismsgto(const std::string &s) {
+bool	istarget(const std::string &s) {
 	return (ischannel(s) || isnickname(s));
 }
 
