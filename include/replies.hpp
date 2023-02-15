@@ -23,5 +23,9 @@ std::string	MSG_NICK(Client *client, std::string newnick);
 std::string	ERR_NOSUCHCHANNEL(Client *client, std::string channel);
 std::string	ERR_NOTONCHANNEL(Client *client, std::string channel);
 std::string	MSG_PART(Client *client, Channel *channel, std::string message = "");
+std::string	RPL_TOPIC(Client *client, Channel *channel);
+std::string	RPL_NOTOPIC(Client *client, Channel *channel);
+std::string	ERR_CHANOPRIVSNEEDED(Client *client, Channel *channel);
+std::string	MSG_TOPIC(Client *client, Channel *channel);
 
 #endif /* REPLIES_HPP */

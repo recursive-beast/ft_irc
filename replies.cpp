@@ -78,3 +78,19 @@ std::string	MSG_PART(Client *client, Channel *channel, std::string message = "")
 		message = client->getNickname();
 	return (client->getMask() + " PART " + channel->name + " :" + message + "\r\n");
 }
+
+std::string	RPL_TOPIC(Client *client, Channel *channel) {
+	return (REPLY("332", client, channel->name + " :" + channel->topic));
+}
+
+std::string	RPL_NOTOPIC(Client *client, Channel *channel) {
+	return (REPLY("331", client, channel->name + " :No topic is set"));
+}
+
+std::string	ERR_CHANOPRIVSNEEDED(Client *client, Channel *channel) {
+	return (REPLY("482", client, channel->name + " :You're not channel operator"));
+}
+
+std::string	MSG_TOPIC(Client *client, Channel *channel) {
+	return (client->getMask() + " TOPIC " + channel->name + " :" + channel->topic + "\r\n");
+}

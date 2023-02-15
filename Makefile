@@ -23,6 +23,7 @@ commands/PASS.cpp\
 commands/NICK.cpp\
 commands/USER.cpp\
 commands/PART.cpp\
+commands/TOPIC.cpp\
 
 MSRC :=
 
