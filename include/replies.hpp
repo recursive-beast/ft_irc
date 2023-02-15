@@ -18,6 +18,6 @@ std::string	ERR_ERRONEUSUSERNAME(Client *client, std::string cmd);
 std::string	ERR_PASSWDMISMATCH(Client *client);
 std::string	RPL_WELCOME(Client *client);
 std::string	ERR_NOTREGISTERED(Client *client, std::string cmd);
-std::string	NICK_CHANGE(Client *client, std::string newnick);
+std::string	MSG_NICK_CHANGE(Client *client, std::string newnick);
 
 #endif /* REPLIES_HPP */
