@@ -13,7 +13,7 @@ std::string	NICK(Message msg, Server *server, Client *client) {
 	if (server->getClient(nick))
 		return (ERR_NICKNAMEINUSE(client, nick));
 	if (client->registered)
-		server->broadcast(MSG_NICK_CHANGE(client, nick));
+		server->broadcast(MSG_NICK(client, nick));
 	client->setNickname(nick);
 	return (NO_REPLY());
 }

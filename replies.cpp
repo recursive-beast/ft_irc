@@ -61,7 +61,7 @@ std::string	ERR_NOTREGISTERED(Client *client, std::string cmd) {
 	return (REPLY("451", client, cmd + " :You have not registered"));
 }
 
-std::string	MSG_NICK_CHANGE(Client *client, std::string newnick) {
+std::string	MSG_NICK(Client *client, std::string newnick) {
 	return (client->getMask() + " NICK :" + newnick + "\r\n");
 }
 
