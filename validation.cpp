@@ -26,17 +26,6 @@ bool	isspecial(const char &c) {
 	return (c >= '[' && c <= '`') || (c >= '_' && c <= '}');
 }
 
-bool	istargetlist(const std::string &s) {
-	size_t	pos;
-
-	if (s.empty())
-		return (false);
-	pos = s.find(",");
-	if (pos == std::string::npos)
-		return (istarget(s));
-	return (istarget(s.substr(0, pos)) && istargetlist(s.substr(pos + 1)));
-}
-
 bool	istarget(const std::string &s) {
 	return (ischannel(s) || isnickname(s));
 }
@@ -95,4 +84,15 @@ bool	ischanstring(const std::string &s) {
 			return (false);
 	}
 	return (true);
+}
+
+bool	islistof(const std::string &s, t_elem_validator validator) {
+	size_t	pos;
+
+	if (s.empty())
+		return (false);
+	pos = s.find(",");
+	if (pos == std::string::npos)
+		return (validator(s));
+	return (validator(s.substr(0, pos)) && islistof(s.substr(pos + 1), validator));
 }
