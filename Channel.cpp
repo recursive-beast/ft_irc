@@ -93,3 +93,16 @@ bool	Channel::hasMode(char mode, Client *client) {
 		return (false);
 	return (it->second.count(mode) == 1);
 }
+
+bool	Channel::unsetMode(char mode) {
+	return (this->modes.erase(mode) == 1);
+}
+
+bool	Channel::unsetMode(char mode, Client *client) {
+	std::map<Client *, std::set<char> >::iterator	it;
+
+	it = this->members.find(client);
+	if (it == this->members.end())
+		return (false);
+	return (it->second.erase(mode) == 1);
+}

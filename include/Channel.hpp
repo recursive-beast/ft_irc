@@ -48,6 +48,8 @@ class Channel
 		bool					setMode(char mode, Client *client);
 		bool					hasMode(char mode);
 		bool					hasMode(char mode, Client *client);
+		bool					unsetMode(char mode);
+		bool					unsetMode(char mode, Client *client);
 };
 
 #endif /* CHANNEL_HPP */
