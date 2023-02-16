@@ -94,3 +94,19 @@ std::string	ERR_CHANOPRIVSNEEDED(Client *client, Channel *channel) {
 std::string	MSG_TOPIC(Client *client, Channel *channel) {
 	return (client->getMask() + " TOPIC " + channel->name + " :" + channel->topic + "\r\n");
 }
+
+std::string	ERR_NOSUCHNICK(Client *client, std::string nickname) {
+	return (REPLY("401", client, nickname + " :No such nick/channel"));
+}
+
+std::string	ERR_USERONCHANNEL(Client *client, Client *user, Channel *channel) {
+	return (REPLY("443", client, user->getNickname() + " " + channel->name + " :is already on channel"));
+}
+
+std::string	RPL_INVITING(Client *client, Client *invited, Channel *channel) {
+	return (REPLY("341", client, channel->name + " " + invited->getNickname()));
+}
+
+std::string	MSG_INVITE(Client *inviting, Client *invited, Channel *channel) {
+	return (inviting->getMask() + " INVITE " + invited->getNickname() + " " + channel->name + "\r\n");
+}

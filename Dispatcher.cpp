@@ -7,6 +7,7 @@ void	Dispatcher::init(std::map<std::string, t_cmd_handler> &handlers) {
 	handlers["USER"] = USER;
 	handlers["PART"] = PART;
 	handlers["TOPIC"] = TOPIC;
+	handlers["INVITE"] = INVITE;
 }
 
 bool	Dispatcher::dispatch(Message msg, Server *server, Client *client) {

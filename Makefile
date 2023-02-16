@@ -24,6 +24,7 @@ commands/NICK.cpp\
 commands/USER.cpp\
 commands/PART.cpp\
 commands/TOPIC.cpp\
+commands/INVITE.cpp\
 
 MSRC :=
 

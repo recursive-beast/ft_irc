@@ -27,5 +27,9 @@ std::string	RPL_TOPIC(Client *client, Channel *channel);
 std::string	RPL_NOTOPIC(Client *client, Channel *channel);
 std::string	ERR_CHANOPRIVSNEEDED(Client *client, Channel *channel);
 std::string	MSG_TOPIC(Client *client, Channel *channel);
+std::string	ERR_NOSUCHNICK(Client *client, std::string nickname);
+std::string	ERR_USERONCHANNEL(Client *client, Client *user, Channel *channel);
+std::string	RPL_INVITING(Client *client, Client *invited, Channel *channel);
+std::string	MSG_INVITE(Client *inviting, Client *invited, Channel *channel);
 
 #endif /* REPLIES_HPP */
