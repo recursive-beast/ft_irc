@@ -2,6 +2,10 @@
 #include <cctype>
 #include "validation.hpp"
 
+bool	isnotempty(const std::string &s) {
+	return (!s.empty());
+}
+
 bool	isuser(const std::string &s) {
 	// US_ASCII characters except NUL, CR, LF, " " and "@"
 	return (s.find_first_of("\x00\x0D\x0A @") == std::string::npos);

@@ -6,8 +6,6 @@
 static std::string	forEach(Message msg, Server *server, Client *client, std::string name) {
 	Channel	*channel;
 
-	if (name.length() == 0)
-		return (NO_REPLY());
 	channel = server->getChannel(name);
 	if (!channel)
 		return (ERR_NOSUCHCHANNEL(client, name));
@@ -30,6 +28,9 @@ std::string	PART(Message msg, Server *server, Client *client) {
 	if (msg.params.size() < 1)
 		return (ERR_NEEDMOREPARAMS(client, msg.cmd));
 	names = split(msg.params[0], ",");
+	names = filter(names, isnotempty);
+	if (names.size() == 0)
+		return (ERR_NEEDMOREPARAMS(client, msg.cmd));
 	for (size_t i = 0; i < names.size(); i++) {
 		reply = forEach(msg, server, client, names[i]);
 		if (reply != NO_REPLY())
