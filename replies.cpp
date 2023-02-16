@@ -110,3 +110,28 @@ std::string	RPL_INVITING(Client *client, Client *invited, Channel *channel) {
 std::string	MSG_INVITE(Client *inviting, Client *invited, Channel *channel) {
 	return (inviting->getMask() + " INVITE " + invited->getNickname() + " " + channel->name + "\r\n");
 }
+
+std::string	RPL_NAMREPLY(Client *client, Channel *channel) {
+	std::string				message;
+	std::vector<Client *>	members;
+	Client					*member;
+
+	message = "= " + channel->name + ":";
+	members = channel->getMembers();
+	for (size_t i = 0; i < members.size(); i++) {
+		member = members[i];
+		if (i)
+			message += " ";
+		if (channel->hasMode(CH_MODE_OPERATOR, member))
+			message += "@";
+		else if (channel->hasMode(CH_MODE_VOICE, member))
+			message += "+";
+		message += member->getNickname();
+	}
+
+	return (REPLY("353", client, message));
+}
+
+std::string	RPL_ENDOFNAMES(Client *client, Channel *channel) {
+	return (REPLY("366", client, channel->name + " :End of NAMES list"));
+}
