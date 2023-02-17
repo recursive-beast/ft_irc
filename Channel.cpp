@@ -54,6 +54,10 @@ std::vector<Client *>	Channel::getMembers() {
 	return (keys);
 }
 
+size_t	Channel::getCount() {
+	return (this->members.size());
+}
+
 bool	Channel::isOn(Client *client) {
 	return (this->members.count(client) == 1);
 }

@@ -135,3 +135,11 @@ std::string	RPL_NAMREPLY(Client *client, Channel *channel) {
 std::string	RPL_ENDOFNAMES(Client *client, Channel *channel) {
 	return (REPLY("366", client, channel->name + " :End of NAMES list"));
 }
+
+std::string	RPL_LIST(Client *client, Channel *channel) {
+	return (REPLY("322", client, channel->name + " " + std::to_string(channel->getCount()) + ":" + channel->topic));
+}
+
+std::string	RPL_LISTEND(Client *client) {
+	return (REPLY("323", client, ":End of LIST"));
+}

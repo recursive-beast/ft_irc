@@ -33,5 +33,6 @@ std::string	PART(Message msg, Server *server, Client *client);
 std::string	TOPIC(Message msg, Server *server, Client *client);
 std::string	INVITE(Message msg, Server *server, Client *client);
 std::string	NAMES(Message msg, Server *server, Client *client);
+std::string	LIST(Message msg, Server *server, Client *client);
 
 #endif /* COMMANDS_HPP */

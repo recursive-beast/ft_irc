@@ -41,6 +41,7 @@ class Channel
 		bool					part(Client *client);
 		Client					*getMember(std::string nickname);
 		std::vector<Client *>	getMembers();
+		size_t					getCount();
 		bool					isOn(Client *client);
 		void					invite(Client *client);
 		bool					isInvited(Client *client);

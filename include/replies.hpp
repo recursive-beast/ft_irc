@@ -33,5 +33,7 @@ std::string	RPL_INVITING(Client *client, Client *invited, Channel *channel);
 std::string	MSG_INVITE(Client *inviting, Client *invited, Channel *channel);
 std::string	RPL_NAMREPLY(Client *client, Channel *channel);
 std::string	RPL_ENDOFNAMES(Client *client, Channel *channel);
+std::string	RPL_LIST(Client *client, Channel *channel);
+std::string	RPL_LISTEND(Client *client);
 
 #endif /* REPLIES_HPP */
