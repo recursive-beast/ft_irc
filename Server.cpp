@@ -167,6 +167,14 @@ std::vector<Channel *>	Server::getChannels() {
 	return (list);
 }
 
+std::vector<Channel *>	Server::getChannels(std::vector<std::string> names) {
+	std::vector<Channel *>	channels;
+
+	for (size_t i = 0; i < names.size(); i++)
+		channels.push_back(this->getChannel(names[i]));
+	return (channels);
+}
+
 Server::~Server() {
 	std::map<int, Client *>::iterator it;
 

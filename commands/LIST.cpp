@@ -4,18 +4,6 @@
 #include "utils.hpp"
 #include "Channel.hpp"
 
-static std::vector<Channel *>	mapToChannels(std::vector<std::string> names, Server *server) {
-	Channel					*channel;
-	std::vector<Channel *>	channels;
-
-	for (size_t i = 0; i < names.size(); i++) {
-		channel = server->getChannel(names[i]);
-		if (channel)
-			channels.push_back(channel);
-	}
-	return (channels);
-}
-
 std::string	LIST(Message msg, Server *server, Client *client) {
 	std::vector<Channel *>		channels;
 	std::vector<std::string>	names;
@@ -29,7 +17,7 @@ std::string	LIST(Message msg, Server *server, Client *client) {
 	if (names.size() == 0)
 		channels = server->getChannels();
 	else
-		channels = mapToChannels(names, server);
+		channels = filter(server->getChannels(names), isNotNULL);
 	for (size_t i = 0; i < channels.size(); i++)
 		client->write(RPL_LIST(client, channels[i]));
 	return (RPL_LISTEND(client));

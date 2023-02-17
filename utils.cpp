@@ -34,3 +34,7 @@ std::string	join(std::vector<std::string> tokens, std::string delimiter) {
 		result += delimiter + tokens[i];
 	return (result);
 }
+
+bool	isNotNULL(void *p) {
+	return (p);
+}

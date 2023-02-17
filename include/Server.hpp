@@ -42,6 +42,7 @@ class Server {
 		Channel					*createChannel(std::string name, Client *creator);
 		Channel					*getChannel(std::string name);
 		std::vector<Channel *>	getChannels();
+		std::vector<Channel *>	getChannels(std::vector<std::string> names);
 		void					poll();
 };
 
