@@ -8,9 +8,9 @@
 
 struct Message
 {
-	std::string prefix;
-	std::string cmd;
-	std::vector<std::string> params;
+	std::string					prefix;
+	std::string					cmd;
+	std::vector<std::string>	params;
 };
 
 Message	parseMessage(std::string msg);
