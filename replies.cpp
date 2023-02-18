@@ -77,7 +77,7 @@ std::string	ERR_NOTONCHANNEL(Client *client, Channel *channel) {
 std::string	MSG_PART(Client *client, Channel *channel, std::string reason = "") {
 	if (reason.length() == 0)
 		reason = client->getNickname();
-	return (MSG(client, "KICK", channel->name + " :" + reason));
+	return (MSG(client, "PART", channel->name + " :" + reason));
 }
 
 std::string	RPL_TOPIC(Client *client, Channel *channel) {
