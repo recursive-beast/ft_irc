@@ -16,14 +16,13 @@ class Server {
 	friend class Client;
 	friend class Channel;
 
-	private:
-		std::map<int, Client *>				clientsBySD;
-		std::map<std::string, Client *>		clientsByNickname;
-		std::map<std::string, Channel *>	channels;
-		std::vector<pollfd>					pollfds;
+	std::map<int, Client *>				clientsBySD;
+	std::map<std::string, Client *>		clientsByNickname;
+	std::map<std::string, Channel *>	channels;
+	std::vector<pollfd>					pollfds;
 
-		int		accept();
-		void	cleanupClients();
+	int		accept();
+	void	cleanupClients();
 
 	public:
 		const int				port;

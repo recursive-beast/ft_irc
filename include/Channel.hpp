@@ -22,10 +22,9 @@ class Server;
 
 class Channel
 {
-	private:
-		std::map<Client *, std::set<char> >	members;
-		std::set<char>						modes;
-		std::set<std::string>				inviteList;
+	std::map<Client *, std::set<char> >	members;
+	std::set<char>						modes;
+	std::set<std::string>				inviteList;
 
 	public:
 		Server *const		server;

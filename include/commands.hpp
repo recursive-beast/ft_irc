@@ -19,11 +19,10 @@ typedef std::string	(*t_cmd_handler)(Message msg, Server *server, Client *client
 
 class Dispatcher
 {
+	static void	init(std::map<std::string, t_cmd_handler> &handlers);
+
 	public:
 		static bool	dispatch(Message msg, Server *server, Client *client);
-
-	private:
-		static void	init(std::map<std::string, t_cmd_handler> &handlers);
 };
 
 #endif /* COMMANDS_HPP */

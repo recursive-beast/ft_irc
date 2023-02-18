@@ -9,11 +9,10 @@
 class Server;
 
 class Client {
-	private:
-		std::string	recv_buffer;
-		std::string	send_buffer;
-		bool		connected;
-		std::string	nickname;
+	std::string	recv_buffer;
+	std::string	send_buffer;
+	bool		connected;
+	std::string	nickname;
 
 	public:
 		Server *const		server;
