@@ -35,5 +35,7 @@ std::string	RPL_NAMREPLY(Client *client, Channel *channel);
 std::string	RPL_ENDOFNAMES(Client *client, Channel *channel);
 std::string	RPL_LIST(Client *client, Channel *channel);
 std::string	RPL_LISTEND(Client *client);
+std::string	MSG_KICK(Client *client, Channel *channel, std::string message = "");
+std::string	ERR_USERNOTINCHANNEL(Client *client, Channel *channel, std::string nickname);
 
 #endif /* REPLIES_HPP */

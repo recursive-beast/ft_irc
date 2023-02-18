@@ -143,3 +143,13 @@ std::string	RPL_LIST(Client *client, Channel *channel) {
 std::string	RPL_LISTEND(Client *client) {
 	return (REPLY("323", client, ":End of LIST"));
 }
+
+std::string	MSG_KICK(Client *client, Channel *channel, std::string message = "") {
+	if (message.length() == 0)
+		message = client->getNickname();
+	return (client->getMask() + " KICK " + channel->name + " :" + message + "\r\n");
+}
+
+std::string	ERR_USERNOTINCHANNEL(Client *client, Channel *channel, std::string nickname) {
+	return (REPLY("441", client, nickname + " " + channel->name + " :They aren't on that channel"));
+}
