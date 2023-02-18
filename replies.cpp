@@ -7,7 +7,7 @@ std::string	NO_REPLY() {
 }
 
 // :<sender> <reply code> <receiver> <message>\r\n
-std::string	REPLY(std::string reply_code, Client *client, std::string message) {
+static std::string	REPLY(std::string reply_code, Client *client, std::string message) {
 	std::string	receiver;
 
 	if (client)
@@ -17,7 +17,7 @@ std::string	REPLY(std::string reply_code, Client *client, std::string message) {
 	return (std::string(":") + HOSTNAME + " " + reply_code + " " + receiver + " " + message + "\r\n");
 }
 
-std::string	BROADCAST_REPLY(std::string reply_code, std::string message) {
+static std::string	BROADCAST_REPLY(std::string reply_code, std::string message) {
 	return (REPLY(reply_code, NULL, message));
 }
 

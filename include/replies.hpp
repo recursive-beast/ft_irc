@@ -6,9 +6,6 @@
 # include <string>
 
 std::string	NO_REPLY();
-// :<sender> <reply code> <receiver> <message>\r\n
-std::string	REPLY(std::string reply_code, Client *client, std::string message);
-std::string	BROADCAST_REPLY(std::string reply_code, std::string message);
 std::string	ERR_ALREADYREGISTRED(Client *client);
 std::string	ERR_NEEDMOREPARAMS(Client *client, std::string cmd);
 std::string	ERR_UNKNOWNCOMMAND(Client *client, std::string cmd);
