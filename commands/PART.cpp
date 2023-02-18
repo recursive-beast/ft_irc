@@ -4,7 +4,8 @@
 #include "utils.hpp"
 
 static std::string	forEach(Message msg, Server *server, Client *client, std::string name) {
-	Channel	*channel;
+	Channel		*channel;
+	std::string	reason;
 
 	channel = server->getChannel(name);
 	if (!channel)
@@ -12,9 +13,8 @@ static std::string	forEach(Message msg, Server *server, Client *client, std::str
 	if (!channel->isOn(client))
 		return (ERR_NOTONCHANNEL(client, channel));
 	if (msg.params.size() > 2)
-		channel->broadcast(MSG_PART(client, channel, msg.params[1]));
-	else
-		channel->broadcast(MSG_PART(client, channel));
+		reason = msg.params[1];
+	channel->broadcast(MSG_PART(client, channel, reason));
 	channel->part(client);
 	if (channel->getCount() == 0)
 		delete channel;

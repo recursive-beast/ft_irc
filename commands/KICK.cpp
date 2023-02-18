@@ -10,8 +10,9 @@ static std::string	forEach(
 	std::string chname,
 	std::string nickname
 ) {
-	Channel	*channel;
-	Client	*target;
+	Channel		*channel;
+	Client		*target;
+	std::string	reason;
 
 	channel = server->getChannel(chname);
 	if (!channel)
@@ -27,9 +28,8 @@ static std::string	forEach(
 		return (NO_REPLY());
 	channel->part(target);
 	if (msg.params.size() > 2)
-		channel->broadcast(MSG_KICK(client, channel, msg.params[2]));
-	else
-		channel->broadcast(MSG_KICK(client, channel));
+		reason = msg.params[2];
+	channel->broadcast(MSG_KICK(client, channel, reason));
 	target->write(MSG_PART(client, channel));
 	if (channel->getCount() == 0)
 		delete channel;
