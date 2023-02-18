@@ -17,8 +17,8 @@ static std::string	REPLY(std::string reply_code, Client *client, std::string mes
 	return (std::string(":") + HOSTNAME + " " + reply_code + " " + receiver + " " + message + "\r\n");
 }
 
-static std::string	BROADCAST_REPLY(std::string reply_code, std::string message) {
-	return (REPLY(reply_code, NULL, message));
+static std::string	MSG(Client *client, std::string cmd, std::string message) {
+	return (client->getMask() + " " + cmd + " " + message + "\r\n");
 }
 
 std::string	ERR_ALREADYREGISTRED(Client *client) {
@@ -62,7 +62,7 @@ std::string	ERR_NOTREGISTERED(Client *client, std::string cmd) {
 }
 
 std::string	MSG_NICK(Client *client, std::string newnick) {
-	return (client->getMask() + " NICK :" + newnick + "\r\n");
+	return (MSG(client, "NICK", newnick));
 }
 
 std::string	ERR_NOSUCHCHANNEL(Client *client, std::string channel) {
@@ -73,10 +73,10 @@ std::string	ERR_NOTONCHANNEL(Client *client, Channel *channel) {
 	return (REPLY("442", client, channel->name + " :You're not on that channel"));
 }
 
-std::string	MSG_PART(Client *client, Channel *channel, std::string message = "") {
-	if (message.length() == 0)
-		message = client->getNickname();
-	return (client->getMask() + " PART " + channel->name + " :" + message + "\r\n");
+std::string	MSG_PART(Client *client, Channel *channel, std::string reason = "") {
+	if (reason.length() == 0)
+		reason = client->getNickname();
+	return (MSG(client, "KICK", channel->name + " :" + reason));
 }
 
 std::string	RPL_TOPIC(Client *client, Channel *channel) {
@@ -92,7 +92,7 @@ std::string	ERR_CHANOPRIVSNEEDED(Client *client, Channel *channel) {
 }
 
 std::string	MSG_TOPIC(Client *client, Channel *channel) {
-	return (client->getMask() + " TOPIC " + channel->name + " :" + channel->topic + "\r\n");
+	return (MSG(client, "TOPIC", channel->name + " :" + channel->topic));
 }
 
 std::string	ERR_NOSUCHNICK(Client *client, std::string nickname) {
@@ -108,7 +108,7 @@ std::string	RPL_INVITING(Client *client, Client *invited, Channel *channel) {
 }
 
 std::string	MSG_INVITE(Client *inviting, Client *invited, Channel *channel) {
-	return (inviting->getMask() + " INVITE " + invited->getNickname() + " " + channel->name + "\r\n");
+	return (MSG(inviting, "INVITE", invited->getNickname() + " " + channel->name));
 }
 
 std::string	RPL_NAMREPLY(Client *client, Channel *channel) {
@@ -144,10 +144,10 @@ std::string	RPL_LISTEND(Client *client) {
 	return (REPLY("323", client, ":End of LIST"));
 }
 
-std::string	MSG_KICK(Client *client, Channel *channel, std::string message = "") {
-	if (message.length() == 0)
-		message = client->getNickname();
-	return (client->getMask() + " KICK " + channel->name + " :" + message + "\r\n");
+std::string	MSG_KICK(Client *client, Channel *channel, std::string reason = "") {
+	if (reason.length() == 0)
+		reason = client->getNickname();
+	return (MSG(client, "KICK", channel->name + " :" + reason));
 }
 
 std::string	ERR_USERNOTINCHANNEL(Client *client, Channel *channel, std::string nickname) {
