@@ -158,8 +158,8 @@ Channel	*Server::getChannel(std::string name) {
 }
 
 std::vector<Channel *>	Server::getChannels() {
-	std::vector<Channel *>	list;
-	std::map<std::string, Channel *>::iterator it;
+	std::vector<Channel *>						list;
+	std::map<std::string, Channel *>::iterator	it;
 
 	for (it = this->channels.begin(); it != this->channels.end(); it++) {
 		list.push_back(it->second);
@@ -173,6 +173,27 @@ std::vector<Channel *>	Server::getChannels(std::vector<std::string> names) {
 	for (size_t i = 0; i < names.size(); i++)
 		channels.push_back(this->getChannel(names[i]));
 	return (channels);
+}
+
+std::vector<std::string>	Server::getChannelNames() {
+	std::vector<std::string>					list;
+	std::map<std::string, Channel *>::iterator	it;
+
+	for (it = this->channels.begin(); it != this->channels.end(); it++) {
+		list.push_back(it->second->name);
+	}
+	return (list);
+}
+
+std::vector<std::string>	Server::getChannelNames(Client *client) {
+	std::vector<std::string>					list;
+	std::map<std::string, Channel *>::iterator	it;
+
+	for (it = this->channels.begin(); it != this->channels.end(); it++) {
+		if (it->second->isOn(client))
+			list.push_back(it->second->name);
+	}
+	return (list);
 }
 
 Server::~Server() {

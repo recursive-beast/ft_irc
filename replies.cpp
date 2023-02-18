@@ -1,5 +1,6 @@
 #include "Client.hpp"
 #include "Channel.hpp"
+#include "utils.hpp"
 #include <string>
 
 std::string	NO_REPLY() {
@@ -116,7 +117,7 @@ std::string	RPL_NAMREPLY(Client *client, Channel *channel) {
 	std::vector<Client *>	members;
 	Client					*member;
 
-	message = "= " + channel->name + ":";
+	message = "= " + channel->name + " :";
 	members = channel->getMembers();
 	for (size_t i = 0; i < members.size(); i++) {
 		member = members[i];
@@ -152,4 +153,52 @@ std::string	MSG_KICK(Client *client, Channel *channel, std::string reason = "") 
 
 std::string	ERR_USERNOTINCHANNEL(Client *client, Channel *channel, std::string nickname) {
 	return (REPLY("441", client, nickname + " " + channel->name + " :They aren't on that channel"));
+}
+
+std::string	ERR_BADCHANMASK(Client *client, std::string channel) {
+	return (REPLY("476", client, channel + " :Bad Channel Mask"));
+}
+
+std::string	ERR_KEYSET(Client *client, Channel *channel) {
+	return (REPLY("467", client, channel->name + " :Channel key already set"));
+}
+
+std::string	ERR_CHANNELISFULL(Client *client, Channel *channel) {
+	return (REPLY("471", client, channel->name + " :Cannot join channel (+l)"));
+}
+
+std::string	ERR_UNKNOWNMODE(Client *client, Channel *channel, char mode) {
+	std::string	message;
+
+	message += mode;
+	message += " :is unknown mode char to me for " + channel->name;
+	return (REPLY("472", client, message));
+}
+
+std::string	ERR_INVITEONLYCHAN(Client *client, Channel *channel) {
+	return (REPLY("473", client, channel->name + " :Cannot join channel (+i)"));
+}
+
+std::string	ERR_BANNEDFROMCHAN(Client *client, Channel *channel) {
+	return (REPLY("474", client, channel->name + " :Cannot join channel (+b)"));
+}
+
+std::string	ERR_BADCHANNELKEY(Client *client, Channel *channel) {
+	return (REPLY("475", client, channel->name + " :Cannot join channel (+k)"));
+}
+
+std::string	ERR_BADCHANMASK(Client *client, Channel *channel) {
+	return (REPLY("476", client, channel->name + " :Bad Channel Mask"));
+}
+
+std::string	ERR_NOCHANMODES(Client *client, Channel *channel) {
+	return (REPLY("477", client, channel->name + " :Channel doesn't support modes"));
+}
+
+std::string	MSG_JOIN(Client *client, Channel *channel) {
+	return (MSG(client, "JOIN", channel->name));
+}
+
+std::string	MSG_MODE(Client *client, Channel *channel) {
+	return (MSG(client, "MODE", channel->name + " +" + join(channel->modes)));
 }

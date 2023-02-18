@@ -6,8 +6,24 @@
 
 void						perror_except(const char *s);
 std::vector<std::string>	split(std::string s, std::string delimiter);
-std::string					join(std::vector<std::string> tokens, std::string delimiter);
 bool						isNotNULL(void *p);
+
+template <typename T>
+std::string					join(const T &tokens, std::string delimiter = "") {
+    std::string					result;
+    typename T::const_iterator	it = tokens.cbegin();
+    typename T::const_iterator	end = tokens.cend();
+
+    if (it != end) {
+        result = *it;
+        ++it;
+    }
+    while (it != end) {
+        result += delimiter + *it;
+        ++it;
+    }
+    return result;
+}
 
 template <typename T, typename P>
 std::vector<T>				filter(const std::vector<T> &input, P predicate) {

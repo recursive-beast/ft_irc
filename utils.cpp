@@ -24,17 +24,6 @@ std::vector<std::string>	split(std::string s, std::string delimiter) {
     return (result);
 }
 
-std::string	join(std::vector<std::string> tokens, std::string delimiter) {
-	std::string	result;
-
-	if (tokens.empty())
-		return ("");
-	result = tokens[0];
-	for (size_t i = 1; i < tokens.size(); i++)
-		result += delimiter + tokens[i];
-	return (result);
-}
-
 bool	isNotNULL(void *p) {
 	return (p);
 }

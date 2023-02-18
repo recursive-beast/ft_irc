@@ -28,6 +28,7 @@ commands/INVITE.cpp\
 commands/NAMES.cpp\
 commands/LIST.cpp\
 commands/KICK.cpp\
+commands/JOIN.cpp\
 
 MSRC :=
 
