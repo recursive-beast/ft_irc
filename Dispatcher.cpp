@@ -1,6 +1,16 @@
 #include "commands.hpp"
 #include "replies.hpp"
 
+std::string	PASS(Message msg, Server *server, Client *client);
+std::string	NICK(Message msg, Server *server, Client *client);
+std::string	USER(Message msg, Server *server, Client *client);
+std::string	PART(Message msg, Server *server, Client *client);
+std::string	TOPIC(Message msg, Server *server, Client *client);
+std::string	INVITE(Message msg, Server *server, Client *client);
+std::string	NAMES(Message msg, Server *server, Client *client);
+std::string	LIST(Message msg, Server *server, Client *client);
+std::string	KICK(Message msg, Server *server, Client *client);
+
 void	Dispatcher::init(std::map<std::string, t_cmd_handler> &handlers) {
 	handlers["PASS"] = PASS;
 	handlers["NICK"] = NICK;
