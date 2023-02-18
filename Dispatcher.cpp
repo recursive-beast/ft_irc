@@ -11,6 +11,7 @@ std::string	NAMES(Message msg, Server *server, Client *client);
 std::string	LIST(Message msg, Server *server, Client *client);
 std::string	KICK(Message msg, Server *server, Client *client);
 std::string	JOIN(Message msg, Server *server, Client *client);
+std::string	PONG(Message msg, Server *server, Client *client);
 
 void	Dispatcher::init(std::map<std::string, t_cmd_handler> &handlers) {
 	handlers["PASS"] = PASS;
@@ -23,6 +24,7 @@ void	Dispatcher::init(std::map<std::string, t_cmd_handler> &handlers) {
 	handlers["LIST"] = LIST;
 	handlers["KICK"] = KICK;
 	handlers["JOIN"] = JOIN;
+	handlers["PONG"] = PONG;
 }
 
 bool	Dispatcher::dispatch(Message msg, Server *server, Client *client) {

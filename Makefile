@@ -29,6 +29,7 @@ commands/NAMES.cpp\
 commands/LIST.cpp\
 commands/KICK.cpp\
 commands/JOIN.cpp\
+commands/PONG.cpp\
 
 MSRC :=
 
