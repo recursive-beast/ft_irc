@@ -216,6 +216,7 @@ Server::~Server() {
 		channelIt++;
 	}
 	while (clientIt != clientEnd) {
+		clientIt->second->disconnect();
 		if (this->onDisconnect)
 			this->onDisconnect(this, clientIt->second);
 		delete clientIt->second;
