@@ -21,7 +21,7 @@ static std::string	REPLY(std::string reply_code, Client *client, std::string mes
 static std::string	MSG(Client *client, std::string cmd, std::string message = "") {
 	std::string	result;
 
-	result = client->getMask() + " " + cmd;
+	result = ":" + client->getMask() + " " + cmd;
 	if (!message.empty())
 		result += + " " + message;
 	result += "\r\n";
