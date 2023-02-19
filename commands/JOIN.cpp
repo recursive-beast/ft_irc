@@ -28,7 +28,7 @@ static std::string	forEach(
 		return (ERR_INVITEONLYCHAN(client, channel));
 	if (channel->limit && channel->getCount() + 1 > channel->limit)
 		return (ERR_CHANNELISFULL(client, channel));
-	if (channel->key != key)
+	if (!channel->key.empty() && channel->key != key)
 		return (ERR_BADCHANNELKEY(client, channel));
 	channel->join(client);
 	channel->broadcast(MSG_JOIN(client, channel));
