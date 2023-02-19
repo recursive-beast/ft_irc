@@ -18,8 +18,14 @@ static std::string	REPLY(std::string reply_code, Client *client, std::string mes
 	return (std::string(":") + HOSTNAME + " " + reply_code + " " + receiver + " " + message + "\r\n");
 }
 
-static std::string	MSG(Client *client, std::string cmd, std::string message) {
-	return (client->getMask() + " " + cmd + " " + message + "\r\n");
+static std::string	MSG(Client *client, std::string cmd, std::string message = "") {
+	std::string	result;
+
+	result = client->getMask() + " " + cmd;
+	if (!message.empty())
+		result += + " " + message;
+	result += "\r\n";
+	return (result);
 }
 
 std::string	ERR_ALREADYREGISTRED(Client *client) {
@@ -201,4 +207,8 @@ std::string	MSG_JOIN(Client *client, Channel *channel) {
 
 std::string	MSG_MODE(Client *client, Channel *channel) {
 	return (MSG(client, "MODE", channel->name + " +" + join(channel->modes)));
+}
+
+std::string	MSG_QUIT(Client *client, std::string reason = "") {
+	return (MSG(client, "QUIT", reason));
 }
