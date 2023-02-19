@@ -60,8 +60,16 @@ ssize_t	Client::send() {
 	return (count);
 }
 
-void	Client::disconnect() {
+void	Client::disconnect(bool crash) {
+	std::map<std::string, Channel *>::iterator	it = server->channels.begin();
+	std::map<std::string, Channel *>::iterator	end = server->channels.end();
+
 	if (this->connected) {
+		this->crash = crash;
+		while (it != end) {
+			it->second->part(this);
+			it++;
+		}
 		this->send();
 		close(this->sd);
 		this->connected = false;
@@ -70,6 +78,10 @@ void	Client::disconnect() {
 
 bool	Client::isConnected() const {
 	return (this->connected);
+}
+
+bool	Client::isCrashed() const {
+	return (this->crash);
 }
 
 std::string	Client::getNickname() const {

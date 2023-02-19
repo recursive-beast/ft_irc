@@ -12,6 +12,7 @@ class Client {
 	std::string	recv_buffer;
 	std::string	send_buffer;
 	bool		connected;
+	bool		crash;
 	std::string	nickname;
 
 	public:
@@ -32,8 +33,9 @@ class Client {
 		void		write(std::string s);
 		ssize_t		recv();
 		ssize_t		send();
-		void		disconnect();
+		void		disconnect(bool crash = false);
 		bool		isConnected() const;
+		bool		isCrashed() const;
 		std::string	getNickname() const;
 		bool		setNickname(std::string nickname);
 		std::string	getMask();

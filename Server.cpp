@@ -88,11 +88,12 @@ void	Server::cleanup() {
 	std::map<std::string, Channel *>::iterator	end = this->channels.end();
 
 	while (it != end) {
-		if (it->second->getCount() == 0) {
+		if (it->second->getCount()) {
+			it++;
+		} else {
 			delete it->second;
-			this->channels.erase(it);
+			it = this->channels.erase(it);
 		}
-		it++;
 	}
 	for (size_t i = 1; i < this->pollfds.size(); i++)
 	{
@@ -128,17 +129,17 @@ void	Server::poll() {
 			if (!client->isConnected())
 				continue;
 			if (revents & (POLLERR | POLLHUP)) {
-				client->disconnect();
+				client->disconnect(true);
 				continue;
 			}
 			if ((revents & POLLIN) && client->recv() <= 0) {
-				client->disconnect();
+				client->disconnect(true);
 				continue;
 			}
 			while (client->isConnected() && this->onLine && client->hasLine())
 				this->onLine(client->getline(), this, client);
 			if (client->isConnected() && (revents & POLLOUT) && client->send() < 0)
-				client->disconnect();
+				client->disconnect(true);
 		}
 		this->cleanup();
 	}

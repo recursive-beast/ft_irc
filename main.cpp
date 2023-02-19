@@ -21,7 +21,8 @@ void	handleConnect(Server *server, Client *client) {
 }
 
 void	handleDisconnect(Server *server, Client *client) {
-	(void)server;
+	if (client->isCrashed())
+		server->broadcast(MSG_QUIT(client, "Connection lost"));
 	std::cout << "[" << client->addr << ":" << client->port << "]#" << client->sd << ": disconnected" << std::endl;
 }
 
