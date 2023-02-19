@@ -82,9 +82,18 @@ int	Server::accept() {
 	return (client_sd);
 }
 
-void	Server::cleanupClients() {
-	Client	*client;
+void	Server::cleanup() {
+	Client										*client;
+	std::map<std::string, Channel *>::iterator	it = this->channels.begin();
+	std::map<std::string, Channel *>::iterator	end = this->channels.end();
 
+	while (it != end) {
+		if (it->second->getCount() == 0) {
+			delete it->second;
+			this->channels.erase(it);
+		}
+		it++;
+	}
 	for (size_t i = 1; i < this->pollfds.size(); i++)
 	{
 		client = this->getClient(this->pollfds[i].fd);
@@ -131,7 +140,7 @@ void	Server::poll() {
 			if (client->isConnected() && (revents & POLLOUT) && client->send() < 0)
 				client->disconnect();
 		}
-		this->cleanupClients();
+		this->cleanup();
 	}
 }
 
@@ -197,12 +206,20 @@ std::vector<std::string>	Server::getChannelNames(Client *client) {
 }
 
 Server::~Server() {
-	std::map<int, Client *>::iterator it;
+	std::map<int, Client *>::iterator 			clientIt = this->clientsBySD.begin();
+	std::map<int, Client *>::iterator 			clientEnd = this->clientsBySD.end();
+	std::map<std::string, Channel *>::iterator	channelIt = this->channels.begin();
+	std::map<std::string, Channel *>::iterator	channelEnd = this->channels.end();
 
-	for (it = this->clientsBySD.begin(); it != this->clientsBySD.end(); it++) {
+	while (channelIt != channelEnd) {
+		delete channelIt->second;
+		channelIt++;
+	}
+	while (clientIt != clientEnd) {
 		if (this->onDisconnect)
-			this->onDisconnect(this, it->second);
-		delete it->second;
+			this->onDisconnect(this, clientIt->second);
+		delete clientIt->second;
+		clientIt++;
 	}
 	close(this->sd);
 }

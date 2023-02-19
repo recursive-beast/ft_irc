@@ -27,11 +27,7 @@ bool	Channel::join(Client *client) {
 }
 
 bool	Channel::part(Client *client) {
-	if (this->members.erase(client) == 0)
-		return (false);
-	if (this->members.empty())
-		server->channels.erase(this->name);
-	return (true);
+	return (this->members.erase(client) == 1);
 }
 
 Client	*Channel::getMember(std::string nickname) {

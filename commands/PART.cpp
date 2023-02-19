@@ -16,8 +16,6 @@ static std::string	forEach(Message msg, Server *server, Client *client, std::str
 		reason = msg.params[1];
 	channel->broadcast(MSG_PART(client, channel, reason));
 	channel->part(client);
-	if (channel->getCount() == 0)
-		delete channel;
 	return (NO_REPLY());
 }
 

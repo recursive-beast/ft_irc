@@ -31,8 +31,6 @@ static std::string	forEach(
 		reason = msg.params[2];
 	channel->broadcast(MSG_KICK(client, channel, reason));
 	target->write(MSG_PART(client, channel));
-	if (channel->getCount() == 0)
-		delete channel;
 	return (NO_REPLY());
 }
 

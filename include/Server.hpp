@@ -7,6 +7,7 @@
 # include <map>
 # include <poll.h>
 # include <vector>
+# include <set>
 
 class Server {
 	typedef void (*t_line_handler)(std::string, Server *, Client *);
@@ -22,7 +23,7 @@ class Server {
 	std::vector<pollfd>					pollfds;
 
 	int		accept();
-	void	cleanupClients();
+	void	cleanup();
 
 	public:
 		const int				port;
