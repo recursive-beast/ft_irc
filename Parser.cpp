@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmessaou <mmessaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:12:56 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/31 14:10:24 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:15:18 by mmessaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	Parser::initCmnds()
 	Parser::commandes["PASS"] = _PASS;
 	Parser::commandes["NICK"] = _NICK;
 	Parser::commandes["USER"] = _USER;
-
 	Parser::commandes["PRIVMSG"] = _PRIVMSG;
+	Parser::commandes["NOTICE"] = _Notice;
 	//aait-oma
 	Parser::commandes["JOIN"] = _JOIN;
 	Parser::commandes["PART"] = _PART;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Messages.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-oma <aait-oma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmessaou <mmessaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:17:18 by mmessaou          #+#    #+#             */
-/*   Updated: 2023/01/27 14:39:27 by aait-oma         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:14:17 by mmessaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	_PRIVMSG(std::string line, Server *server, Client *client)
 	tokens = split(line, " ");
 	if (tokens.size() > 2)
 	{
-		if ((tokens[1][0] == '#' || tokens[1][0] == '&') && server->channelExists(tokens[1]))
+		if (tokens[1][0] == '#' && server->channelExists(tokens[1]))
 		{
 			chnl_it = server->getChannel(tokens[1]);
 			_members = chnl_it->second.getMembers();
@@ -35,7 +35,7 @@ void	_PRIVMSG(std::string line, Server *server, Client *client)
 				while (clt_it != _members.end())
 				{
 					if ((*clt_it) != client)
-						(*clt_it)->write(":" + client->nickname + " PRIVMSG " + (*clt_it)->nickname
+						(*clt_it)->write(":" + client->nickname + " PRIVMSG " + tokens[1]
 							+ " :" + skipWords(line, 2) + "\n");
 					clt_it++;
 				}
@@ -48,11 +48,22 @@ void	_PRIVMSG(std::string line, Server *server, Client *client)
 			c_target = server->getClient(tokens[1]);
 			if (c_target && c_target != client)
 			{
-				c_target->write(":" + client->nickname + " PRIVMSG " + c_target->nickname
+				c_target->write(":" + client->nickname + " " + tokens[0] + " "+ c_target->nickname
 					+ " :" + skipWords(line, 2) + "\n");
 			}
 		}
 	}
+	else
+		client->write(hostname + " 411 " + ":No recipient given (PRIVMSG)\n");
+}
+
+void	_Notice(std::string line, Server *server, Client *client)
+{
+	std::vector<std::string>					tokens;
+
+	tokens = split(line, " ");
+	if (tokens.size() > 2 && tokens[1][0] != '#')
+		_PRIVMSG(line, server, client);
 	else
 		client->write(hostname + " 411 " + ":No recipient given (PRIVMSG)\n");
 }
