@@ -155,14 +155,18 @@ void	Server::broadcast(std::string s) {
 }
 
 Channel	*Server::createChannel(std::string name, Client *creator) {
-	if (this->channels.count(name))
-		return (NULL);
+	if (this->channels.count(name)) {
+		if (this->channels[name]->getCount())
+			return (NULL);
+		delete this->channels[name];
+		this->channels.erase(name);
+	}
 	this->channels[name] = new Channel(this, name, creator);
 	return (this->channels[name]);
 }
 
 Channel	*Server::getChannel(std::string name) {
-	if (this->channels.count(name))
+	if (this->channels.count(name) && this->channels[name]->getCount())
 		return (this->channels[name]);
 	return (NULL);
 }
