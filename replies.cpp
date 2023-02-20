@@ -206,6 +206,16 @@ std::string	MSG_JOIN(Client *client, Channel *channel) {
 }
 
 std::string	MSG_MODE(Client *client, Channel *channel) {
+	if (channel->modes.erase(CH_MODE_KEY)) {
+
+	}
+	return (MSG(client, "MODE", channel->name + " +" + join(channel->modes)));
+}
+
+std::string RPL_CHANNELMODEIS(Client *client, Channel *channel) {
+	if (channel->modes.erase(CH_MODE_KEY)) {
+		
+	}
 	return (MSG(client, "MODE", channel->name + " +" + join(channel->modes)));
 }
 
