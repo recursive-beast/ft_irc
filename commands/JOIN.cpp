@@ -32,7 +32,6 @@ static std::string	forEach(
 		return (ERR_BADCHANNELKEY(client, channel));
 	channel->join(client);
 	channel->broadcast(MSG_JOIN(client, channel));
-	client->write(MSG_MODE(client, channel));
 	client->write(RPL_TOPIC(client, channel));
 	client->write(RPL_NAMREPLY(client, channel));
 	return (RPL_ENDOFNAMES(client, channel));
