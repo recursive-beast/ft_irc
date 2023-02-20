@@ -210,5 +210,5 @@ std::string	MSG_MODE(Client *client, Channel *channel) {
 }
 
 std::string	MSG_QUIT(Client *client, std::string reason = "") {
-	return (MSG(client, "QUIT", reason));
+	return (MSG(client, "QUIT", ":" + reason));
 }
