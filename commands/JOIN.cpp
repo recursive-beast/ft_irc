@@ -26,9 +26,9 @@ static std::string	forEach(
 	}
 	if (channel->hasMode(CH_MODE_INVITE_ONLY) && !channel->isInvited(client))
 		return (ERR_INVITEONLYCHAN(client, channel));
-	if (channel->limit && channel->getCount() + 1 > channel->limit)
+	if (channel->hasMode(CH_MODE_LIMIT) && channel->getCount() + 1 > channel->limit)
 		return (ERR_CHANNELISFULL(client, channel));
-	if (!channel->key.empty() && channel->key != key)
+	if (channel->hasMode(CH_MODE_KEY) && channel->key != key)
 		return (ERR_BADCHANNELKEY(client, channel));
 	channel->join(client);
 	channel->broadcast(MSG_JOIN(client, channel));
