@@ -4,104 +4,65 @@
 #include "Channel.hpp"
 #include <string>
 
-bool	isPlusOrMinus(std::string& modes) {
-	return (modes[0] == '+' || modes[0] == '-');
-}
+bool	addMode(Channel *channel, Client *client, char mode, bool isOp, std::string parms) {
+	bool	modeApplyed = false;
 
-void	addMode(Channel *channel, Client *client, char mode, bool isOp, std::string parms) {
 	switch (mode)
 	{
 		case CH_MODE_INVITE_ONLY:
-			channel->setMode(mode);
+			return (channel->setMode(mode));
 			break;
 		case CH_MODE_MODERATED:
-			channel->setMode(mode);
+			return (channel->setMode(mode));
 			break;
 		case CH_MODE_NO_OUTSIDE:
-			channel->setMode(mode);
+			return (channel->setMode(mode));
 			break;
 		case CH_MODE_TOPIC:
 			if (isOp) {
-				channel->setMode(mode);
 				channel->topic = parms;
+				return (channel->setMode(mode));
 			}
 			break;
 		case CH_MODE_KEY:
 			if (isOp) {
-				channel->setMode(mode);
 				channel->key = parms;
+				return (channel->setMode(mode));
 			}
 			break;
 		case CH_MODE_LIMIT:
 			if (isOp) {
-				channel->setMode(mode);
 				channel->limit = std::stoi(parms);
+				return (channel->setMode(mode));
 			}
 			break;
 		case CH_MODE_CREATOR:
-			channel->setMode(mode);
+			return (channel->setMode(mode));
 			break;
 		case CH_MODE_OPERATOR:
-			channel->setMode(mode);
-			channel->topic = parms;
+			return (channel->setMode(mode));
 			break;
 		case CH_MODE_VOICE:
-			if (isOp) {
-				channel->setMode(mode, client);
-				channel->topic = parms;
-			}
+			if (isOp)
+				return (channel->setMode(mode, client));
 			break;
 		default:
-
+			return(false);
 			break;
 	}
 }
 
-void	removeMode(Channel *channel, Client *client, char mode, bool isOp, std::string parms) {
-	switch (mode)
-	{
-		case CH_MODE_INVITE_ONLY:
-			channel->unsetMode(mode);
-			break;
-		case CH_MODE_MODERATED:
-			channel->unsetMode(mode);
-			break;
-		case CH_MODE_NO_OUTSIDE:
-			channel->unsetMode(mode);
-			break;
-		case CH_MODE_TOPIC:
-			if (isOp) {
-				channel->unsetMode(mode);
-				channel->topic = "";
-			}
-			break;
-		case CH_MODE_KEY:
-			if (isOp && channel->key = parms) {
-				channel->unsetMode(mode);
-				channel->key = "";
-			}
-			break;
-		case CH_MODE_LIMIT:
-			if (isOp)
-				channel->unsetMode(mode);
-			break;
-		case CH_MODE_CREATOR:
-			channel->unsetMode(mode, client);
-			break;
-		case CH_MODE_OPERATOR:
-			channel->unsetMode(mode, client);
-			channel->topic = parms;
-			break;
-		case CH_MODE_VOICE:
-			if (isOp) {
-				channel->unsetMode(mode, client);
-				channel->topic = parms;
-			}
-			break;
-		default:
+void TraverseModes(std::string &str, int N)
+{
+	// std::string::iterator	it = str.begin();
+	std::size_t				found;
 
-			break;
+	for (int i = 0; i < N; i++)
+	{
+		found = str.find_first_not_of("+-");
+		// if ()
 	}
+
 }
 
 std::string	MODE(Message msg, Server *server, Client *client) {
@@ -117,7 +78,6 @@ std::string	MODE(Message msg, Server *server, Client *client) {
 	if (msg.params.size() < 2) {
 		return (RPL_CHANNELMODEIS(client, channel));
 	} else {
-		bool	isPlus = false;
 
 	}
 }
