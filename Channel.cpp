@@ -19,6 +19,15 @@ void	Channel::broadcast(std::string message) {
 	}
 }
 
+void	Channel::broadcast(std::string message, Client *except) {
+	std::map<Client *, std::set<char> >::iterator	it;
+
+	for (it = this->members.begin(); it != this->members.end(); it++) {
+		if (it->first != except)
+			it->first->write(message);
+	}
+}
+
 bool	Channel::join(Client *client) {
 	if (this->members.count(client))
 		return (false);

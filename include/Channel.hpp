@@ -38,6 +38,7 @@ class Channel
 		Channel(Server *server, std::string name, Client *creator);
 
 		void					broadcast(std::string message);
+		void					broadcast(std::string message, Client *except);
 		bool					join(Client *client);
 		bool					part(Client *client);
 		Client					*getMember(std::string nickname);
