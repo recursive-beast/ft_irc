@@ -54,8 +54,6 @@ std::string	JOIN(Message msg, Server *server, Client *client) {
 	if (msg.params.size() < 1)
 		return (ERR_NEEDMOREPARAMS(client, msg.cmd));
 	chnames = split(msg.params[0], ",");
-	if (filter(chnames, isnotempty).size() == 0)
-		return (ERR_NEEDMOREPARAMS(client, msg.cmd));
 	if (msg.params.size() > 1)
 		keys = split(msg.params[1], ",");
 	for (size_t i = 0; i < chnames.size(); i++) {

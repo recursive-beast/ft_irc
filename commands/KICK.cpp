@@ -44,6 +44,8 @@ static void	manyInOne(
 	std::string	reply;
 
 	for (size_t i = 0; i < nicknames.size(); i++) {
+		if (chname.empty() || nicknames[i].empty())
+			continue;
 		reply = forEach(msg, server, client, chname, nicknames[i]);
 		if (reply != NO_REPLY())
 			client->write(reply);
@@ -60,6 +62,8 @@ static void	manyInMany(
 	std::string	reply;
 
 	for (size_t i = 0; i < nicknames.size(); i++) {
+		if (chnames[i].empty() || nicknames[i].empty())
+			continue;
 		reply = forEach(msg, server, client, chnames[i], nicknames[i]);
 		if (reply != NO_REPLY())
 			client->write(reply);
@@ -76,17 +80,10 @@ std::string	KICK(Message msg, Server *server, Client *client) {
 	if (msg.params.size() < 2)
 		return (ERR_NEEDMOREPARAMS(client, msg.cmd));
 	chnames = split(msg.params[0], ",");
-	chnames = filter(chnames, isnotempty);
 	nicknames = split(msg.params[1], ",");
-	nicknames = filter(chnames, isnotempty);
-	if (chnames.size() == 0 || nicknames.size() == 0)
-		return (ERR_NEEDMOREPARAMS(client, msg.cmd));
-	if (chnames.size() == 1) {
+	if (chnames.size() == 1)
 		manyInOne(msg, server, client, chnames[0], nicknames);
-	} else {
-		if (chnames.size() != nicknames.size())
-			return (ERR_NEEDMOREPARAMS(client, msg.cmd));
+	else
 		manyInMany(msg, server, client, chnames, nicknames);
-	}
 	return (NO_REPLY());
 }

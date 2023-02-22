@@ -10,10 +10,8 @@ std::string	LIST(Message msg, Server *server, Client *client) {
 
 	if (!client->registered)
 		return (ERR_NOTREGISTERED(client, msg.cmd));
-	if (msg.params.size() > 0) {
+	if (msg.params.size() > 0)
 		names = split(msg.params[0], ",");
-		names = filter(names, isnotempty);
-	}
 	if (names.size() == 0)
 		channels = server->getChannels();
 	else
