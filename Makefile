@@ -31,6 +31,7 @@ commands/KICK.cpp\
 commands/JOIN.cpp\
 commands/PONG.cpp\
 commands/QUIT.cpp\
+commands/MODE.cpp\
 
 MSRC :=
 

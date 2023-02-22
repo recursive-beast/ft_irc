@@ -27,6 +27,7 @@ class Channel
 	std::set<std::string>				inviteList;
 
 	friend std::string	MSG_MODE(Client *client, Channel *channel);
+	friend std::string	RPL_CHANNELMODEIS(Client *client, Channel *channel);
 
 	public:
 		Server *const		server;

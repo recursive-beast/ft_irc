@@ -98,6 +98,10 @@ std::string	ERR_CHANOPRIVSNEEDED(Client *client, Channel *channel) {
 	return (REPLY("482", client, channel->name + " :You're not channel operator"));
 }
 
+std::string	ERR_NOPRIVILEGES(Client *client) {
+	return (REPLY("481", client, ":Permission Denied- You're not an IRC operator"));
+}
+
 std::string	MSG_TOPIC(Client *client, Channel *channel) {
 	return (MSG(client, "TOPIC", channel->name + " :" + channel->topic));
 }
@@ -206,17 +210,26 @@ std::string	MSG_JOIN(Client *client, Channel *channel) {
 }
 
 std::string	MSG_MODE(Client *client, Channel *channel) {
-	if (channel->modes.erase(CH_MODE_KEY)) {
-
-	}
 	return (MSG(client, "MODE", channel->name + " +" + join(channel->modes)));
 }
 
 std::string RPL_CHANNELMODEIS(Client *client, Channel *channel) {
-	if (channel->modes.erase(CH_MODE_KEY)) {
-		
+	std::set<char>				modes = channel->modes;
+	std::vector<std::string>	params;
+	std::set<char>::iterator	it = modes.begin();
+	std::string					msg;
+
+	for (; it != modes.end() ; it++)
+	{
+		if (*it == CH_MODE_LIMIT)
+			params.push_back(std::to_string(channel->limit));
+		if (*it == CH_MODE_KEY)
+			params.push_back(channel->key);
 	}
-	return (MSG(client, "MODE", channel->name + " +" + join(channel->modes)));
+	msg = channel->name + " +" + join(channel->modes);
+	if (params.size())
+		msg += " " + join(params, " ");
+	return (MSG(client, "MODE", msg));
 }
 
 std::string	MSG_QUIT(Client *client, std::string reason = "") {
