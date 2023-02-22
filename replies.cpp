@@ -118,6 +118,14 @@ std::string	MSG_INVITE(Client *inviting, Client *invited, Channel *channel) {
 	return (MSG(inviting, "INVITE", invited->getNickname() + " " + channel->name));
 }
 
+std::string	MSG_PRIVMSG(Client *sender, Client *target, std::string msg) {
+	return (MSG(sender, "PRIVMSG", target->getNickname() + " :" + msg));
+}
+
+std::string	MSG_PRIVMSG(Client *sender, Channel *target, std::string msg) {
+	return (MSG(sender, "PRIVMSG", target->name + " :" + msg));
+}
+
 std::string	RPL_NAMREPLY(Client *client, Channel *channel) {
 	std::string				message;
 	std::vector<Client *>	members;
@@ -163,6 +171,18 @@ std::string	ERR_USERNOTINCHANNEL(Client *client, Channel *channel, std::string n
 
 std::string	ERR_BADCHANMASK(Client *client, std::string channel) {
 	return (REPLY("476", client, channel + " :Bad Channel Mask"));
+}
+
+std::string	ERR_CANNOTSENDTOCHAN(Client *client, Channel *channel) {
+	return (REPLY("441", client, channel->name + " :Cannot send to channel"));
+}
+
+std::string	ERR_NOTEXTTOSEND(Client *client) {
+	return (REPLY("441", client, " :No text to send"));
+}
+
+std::string	ERR_NORECIPIENT(Client *client, std::string cmd) {
+	return (REPLY("411", client, ":No recipient given " + cmd));
 }
 
 std::string	ERR_KEYSET(Client *client, Channel *channel) {

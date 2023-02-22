@@ -31,6 +31,8 @@ commands/KICK.cpp\
 commands/JOIN.cpp\
 commands/PONG.cpp\
 commands/QUIT.cpp\
+commands/PRIVMSG.cpp\
+commands/NOTICE.cpp\
 
 MSRC :=
 
