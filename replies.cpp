@@ -193,10 +193,6 @@ std::string	ERR_BADCHANNELKEY(Client *client, Channel *channel) {
 	return (REPLY("475", client, channel->name + " :Cannot join channel (+k)"));
 }
 
-std::string	ERR_BADCHANMASK(Client *client, Channel *channel) {
-	return (REPLY("476", client, channel->name + " :Bad Channel Mask"));
-}
-
 std::string	ERR_NOCHANMODES(Client *client, Channel *channel) {
 	return (REPLY("477", client, channel->name + " :Channel doesn't support modes"));
 }
