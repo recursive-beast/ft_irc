@@ -126,6 +126,10 @@ std::string	MSG_PRIVMSG(Client *sender, Channel *target, std::string msg) {
 	return (MSG(sender, "PRIVMSG", target->name + " :" + msg));
 }
 
+std::string	MSG_NOTICE(Client *sender, Channel *target, std::string msg) {
+	return (MSG(sender, "NOTICE", target->name + " :" + msg));
+}
+
 std::string	RPL_NAMREPLY(Client *client, Channel *channel) {
 	std::string				message;
 	std::vector<Client *>	members;

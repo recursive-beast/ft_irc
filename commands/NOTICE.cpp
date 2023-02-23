@@ -24,13 +24,13 @@ std::string	NOTICE(Message msg, Server *server, Client *client) {
 					|| cnl_target->hasMode('o', client))))
 					client->write(NO_REPLY());
 				else if (!msg.params[1].empty())
-						cnl_target->broadcast(MSG_PRIVMSG(client, cnl_target, msg.params[1]), client);
+						cnl_target->broadcast(MSG_NOTICE(client, cnl_target, msg.params[1]), client);
 			}
 			else
 			{
 				c_target = server->getClient(tokens[i]);
 				if (c_target && c_target != client)
-					c_target->write(MSG_PRIVMSG(client, c_target, msg.params[1]));
+					c_target->write(MSG_NOTICE(client, c_target, msg.params[1]));
 			}
 		}
 	}
