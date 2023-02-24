@@ -32,7 +32,7 @@ std::string	RPL_NAMREPLY(Client *client, Channel *channel);
 std::string	RPL_ENDOFNAMES(Client *client, Channel *channel);
 std::string	RPL_LIST(Client *client, Channel *channel);
 std::string	RPL_LISTEND(Client *client);
-std::string	MSG_KICK(Client *client, Channel *channel, std::string reason = "");
+std::string	MSG_KICK(Client *kicker, Client *kicked, Channel *channel, std::string reason = "");
 std::string	ERR_USERNOTINCHANNEL(Client *client, Channel *channel, std::string nickname);
 std::string	ERR_BADCHANMASK(Client *client, std::string channel);
 std::string	ERR_KEYSET(Client *client, Channel *channel);

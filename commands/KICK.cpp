@@ -26,11 +26,10 @@ static std::string	forEach(
 		return (ERR_USERNOTINCHANNEL(client, channel, nickname));
 	if (target == client)
 		return (NO_REPLY());
-	channel->part(target);
 	if (msg.params.size() > 2)
 		reason = msg.params[2];
-	channel->broadcast(MSG_KICK(client, channel, reason));
-	target->write(MSG_PART(client, channel));
+	channel->broadcast(MSG_KICK(client, target, channel, reason));
+	channel->part(target);
 	return (NO_REPLY());
 }
 
