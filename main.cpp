@@ -1,6 +1,7 @@
 #include "Server.hpp"
 #include "commands.hpp"
 #include "replies.hpp"
+#include "utils.hpp"
 #include <vector>
 #include <poll.h>
 #include <iostream>
@@ -11,6 +12,7 @@ void	handleLine(std::string line, Server *server, Client *client) {
 
 	std::cout << "[" << client->addr << ":" << client->port << "]#" << client->sd << ": line: " << line << std::endl;
 	msg = parseMessage(line);
+	msg.cmd = stoupper(msg.cmd);
 	if (msg.cmd.length() && !Dispatcher::dispatch(msg, server, client))
 		client->write(ERR_UNKNOWNCOMMAND(client, msg.cmd));
 }

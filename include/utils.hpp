@@ -7,6 +7,7 @@
 void						perror_except(const char *s);
 std::vector<std::string>	split(std::string s, std::string delimiter);
 bool						isNotNULL(void *p);
+std::string					stoupper(const std::string& s);
 
 template <typename T>
 std::string					join(const T &tokens, std::string delimiter = "") {

@@ -3,6 +3,7 @@
 #include <string>
 #include <cstring>
 #include <vector>
+#include <cctype>
 
 void	perror_except(const char *s) {
 	throw std::runtime_error(std::string(s) + ": " + std::strerror(errno));
@@ -26,4 +27,13 @@ std::vector<std::string>	split(std::string s, std::string delimiter) {
 
 bool	isNotNULL(void *p) {
 	return (p);
+}
+
+std::string	stoupper(const std::string& s) {
+	std::string	result(s.size(), 0);
+
+	for (std::string::size_type i = 0; i < s.size(); ++i) {
+		result[i] = std::toupper(s[i]);
+	}
+	return result;
 }
