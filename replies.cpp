@@ -126,6 +126,10 @@ std::string	MSG_PRIVMSG(Client *sender, Channel *target, std::string msg) {
 	return (MSG(sender, "PRIVMSG", target->name + " :" + msg));
 }
 
+std::string	MSG_NOTICE(Client *sender, Client *target, std::string msg) {
+	return (MSG(sender, "PRIVMSG", target->getNickname() + " :" + msg));
+}
+
 std::string	MSG_NOTICE(Client *sender, Channel *target, std::string msg) {
 	return (MSG(sender, "NOTICE", target->name + " :" + msg));
 }
