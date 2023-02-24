@@ -17,6 +17,8 @@ std::string	TOPIC(Message msg, Server *server, Client *client) {
 		return (RPL_TOPIC(client, channel));
 	if (!channel->hasMode(CH_MODE_OPERATOR, client))
 		return (ERR_CHANOPRIVSNEEDED(client, channel));
+	if (channel->topic == msg.params[1])
+		return (NO_REPLY());
 	channel->topic = msg.params[1];
 	channel->broadcast(MSG_TOPIC(client, channel));
 	return (NO_REPLY());
