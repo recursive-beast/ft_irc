@@ -11,7 +11,7 @@ void	handleLine(std::string line, Server *server, Client *client) {
 
 	std::cout << "[" << client->addr << ":" << client->port << "]#" << client->sd << ": line: " << line << std::endl;
 	msg = parseMessage(line);
-	if (msg.cmd.length() && !Dispatcher::dispatch(msg, server, client) && client->registered)
+	if (msg.cmd.length() && !Dispatcher::dispatch(msg, server, client))
 		client->write(ERR_UNKNOWNCOMMAND(client, msg.cmd));
 }
 
