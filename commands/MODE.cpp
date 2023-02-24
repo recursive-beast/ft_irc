@@ -115,8 +115,8 @@ std::string	MODE(Message msg, Server *server, Client *client) {
 		return (ERR_NOTONCHANNEL(client, channel));
 	if (msg.params.size() < 2)
 		return (RPL_CHANNELMODEIS(client, channel));
-	// if (!channel->hasMode(CH_MODE_OPERATOR, client))
-	// 	return (ERR_CHANOPRIVSNEEDED(client, channel));
+	if (!channel->hasMode(CH_MODE_OPERATOR, client))
+		return (ERR_CHANOPRIVSNEEDED(client, channel));
 	std::string	modes = msg.params[1];
 	size_t			nextParam = 1;
 	std::string	reply;
@@ -129,11 +129,13 @@ std::string	MODE(Message msg, Server *server, Client *client) {
 			continue;
 		}
 		if (op == '+' || op == '-') {
-			reply = applyMode(channel, client, modes[i], op, ((msg.params.size() > ++nextParam) ? msg.params[nextParam] : ""));
+			reply = applyMode(channel, client, modes[i], op, ((modes[i] == CH_MODE_OPERATOR || modes[i] == CH_MODE_VOICE || modes[i] == CH_MODE_KEY || modes[i] == CH_MODE_LIMIT)
+																	&&  msg.params.size() > ++nextParam) ? msg.params[nextParam] : "");
 			if (reply != NO_REPLY())
 				client->write(reply);
 		}
-		op = '*';
+		if (op != '+' || op != '-')
+			op = '*';
 	}
 	return (NO_REPLY());
 }
