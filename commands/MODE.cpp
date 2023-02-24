@@ -8,7 +8,6 @@
 std::string	applyMode(Channel *channel, Client *client, char mode, char op, std::string param) {
 	Client	*to_apply;
 
-	std::cout << op << mode << std::endl;
 	switch (mode)
 	{
 		case CH_MODE_INVITE_ONLY:
@@ -37,8 +36,12 @@ std::string	applyMode(Channel *channel, Client *client, char mode, char op, std:
 			return (NO_REPLY());
 		case CH_MODE_LIMIT:
 			if (op == '+') {
+				try {
+					channel->limit = std::stoi(param);
+				} catch (...) {
+					return (NO_REPLY());
+				}
 				channel->setMode(mode);
-				channel->limit = std::stoi(param);
 				channel->broadcast(RPL_CHANNELMODEIS(client, channel));
 			}
 			else if (op == '-') {
@@ -112,10 +115,10 @@ std::string	MODE(Message msg, Server *server, Client *client) {
 		return (ERR_NOTONCHANNEL(client, channel));
 	if (msg.params.size() < 2)
 		return (RPL_CHANNELMODEIS(client, channel));
-	if (!channel->hasMode(CH_MODE_OPERATOR, client))
-		return (ERR_CHANOPRIVSNEEDED(client, channel));
-	std::string	modes = msg.params[2];
-	size_t			nextParam = 2;
+	// if (!channel->hasMode(CH_MODE_OPERATOR, client))
+	// 	return (ERR_CHANOPRIVSNEEDED(client, channel));
+	std::string	modes = msg.params[1];
+	size_t			nextParam = 1;
 	std::string	reply;
 	char		op = '*';
 
@@ -126,7 +129,7 @@ std::string	MODE(Message msg, Server *server, Client *client) {
 			continue;
 		}
 		if (op == '+' || op == '-') {
-			reply = applyMode(channel, client, modes[i], op, ((msg.params.size() > ++nextParam) ? msg.params[nextParam] : NULL));
+			reply = applyMode(channel, client, modes[i], op, ((msg.params.size() > ++nextParam) ? msg.params[nextParam] : ""));
 			if (reply != NO_REPLY())
 				client->write(reply);
 		}
