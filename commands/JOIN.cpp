@@ -13,7 +13,17 @@ static std::string	forEach(
 	Channel	*channel;
 
 	channel = server->getChannel(chname);
-	if (!channel) {
+	if (channel) {
+		if (channel->isOn(client))
+			return (NO_REPLY());
+		if (channel->hasMode(CH_MODE_INVITE_ONLY) && !channel->isInvited(client))
+			return (ERR_INVITEONLYCHAN(client, channel));
+		if (channel->hasMode(CH_MODE_LIMIT) && channel->getCount() + 1 > channel->limit)
+			return (ERR_CHANNELISFULL(client, channel));
+		if (channel->hasMode(CH_MODE_KEY) && channel->key != key)
+			return (ERR_BADCHANNELKEY(client, channel));
+		channel->join(client);
+	} else {
 		if (!ischannel(chname))
 			return (ERR_BADCHANMASK(client, chname));
 		channel = server->createChannel(chname, client);
@@ -24,13 +34,6 @@ static std::string	forEach(
 			channel->key = key;
 		}
 	}
-	if (channel->hasMode(CH_MODE_INVITE_ONLY) && !channel->isInvited(client))
-		return (ERR_INVITEONLYCHAN(client, channel));
-	if (channel->hasMode(CH_MODE_LIMIT) && channel->getCount() + 1 > channel->limit)
-		return (ERR_CHANNELISFULL(client, channel));
-	if (channel->hasMode(CH_MODE_KEY) && channel->key != key)
-		return (ERR_BADCHANNELKEY(client, channel));
-	channel->join(client);
 	channel->broadcast(MSG_JOIN(client, channel));
 	client->write(RPL_TOPIC(client, channel));
 	client->write(RPL_NAMREPLY(client, channel));
