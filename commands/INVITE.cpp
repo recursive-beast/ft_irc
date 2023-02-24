@@ -14,6 +14,8 @@ std::string	INVITE(Message msg, Server *server, Client *client) {
 	invited = server->getClient(msg.params[0]);
 	if (!invited)
 		return (ERR_NOSUCHNICK(client, msg.params[0]));
+	if (invited == client)
+		return (NO_REPLY());
 	channel = server->getChannel(msg.params[1]);
 	if (!channel)
 		return (NO_REPLY());
