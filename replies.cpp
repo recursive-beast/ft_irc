@@ -152,6 +152,8 @@ std::string	RPL_LISTEND(Client *client) {
 }
 
 std::string	MSG_KICK(Client *kicker, Client *kicked, Channel *channel, std::string reason = "") {
+	if (reason.empty())
+		reason = kicker->getNickname();
 	return (MSG(kicker, "KICK", channel->name + " " + kicked->getNickname() +  " :" + reason));
 }
 
