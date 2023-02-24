@@ -14,16 +14,16 @@ std::string	INVITE(Message msg, Server *server, Client *client) {
 	invited = server->getClient(msg.params[0]);
 	if (!invited)
 		return (ERR_NOSUCHNICK(client, msg.params[0]));
-	channel = server->getChannel(msg.params[0]);
-	if (channel) {
-		if (!channel->isOn(client))
-			return (ERR_NOTONCHANNEL(client, channel));
-		if (channel->hasMode(CH_MODE_INVITE_ONLY) && !channel->hasMode(CH_MODE_OPERATOR, client))
-			return (ERR_CHANOPRIVSNEEDED(client, channel));
-		if (channel->isOn(invited))
-			return (ERR_USERONCHANNEL(client, invited, channel));
-		channel->invite(invited);
-	}
+	channel = server->getChannel(msg.params[1]);
+	if (!channel)
+		return (NO_REPLY());
+	if (!channel->isOn(client))
+		return (ERR_NOTONCHANNEL(client, channel));
+	if (channel->hasMode(CH_MODE_INVITE_ONLY) && !channel->hasMode(CH_MODE_OPERATOR, client))
+		return (ERR_CHANOPRIVSNEEDED(client, channel));
+	if (channel->isOn(invited))
+		return (ERR_USERONCHANNEL(client, invited, channel));
+	channel->invite(invited);
 	invited->write(MSG_INVITE(client, invited, channel));
 	return (RPL_INVITING(client, invited, channel));
 }
