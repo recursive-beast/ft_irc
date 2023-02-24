@@ -5,26 +5,6 @@
 #include "utils.hpp"
 #include <iostream>
 
-// std::string	DCCMSG(Message msg, Server *server, Client *client)
-// {
-
-// }
-
-std::string	isDCC(std::string param)
-{
-	// std::string message;
-	Message msg = parseMessage(param);
-
-
-	// std::cout << msg.cmd << " " << msg.params.size() << std::endl;
-
-	if (msg.cmd == std::string("\x01") + "DCC" && msg.params.size() == 5)
-	{
-		return (param);
-	}
-	return ("");
-}
-
 std::string	PRIVMSG(Message msg, Server *server, Client *client) {
 	std::vector<std::string>	tokens;
 	Client						*c_target;
@@ -57,16 +37,7 @@ std::string	PRIVMSG(Message msg, Server *server, Client *client) {
 			{
 				c_target = server->getClient(tokens[i]);
 				if (c_target && c_target != client)
-				{
-					ddc = isDCC(msg.params[1]);
-					// std::cout << ddc + "aa" << std::endl;
-					if (ddc.length() != 0)
-					{
-						c_target->write(MSG_PRIVMSG(client, c_target, ddc));
-						return (NO_REPLY());
-					}
 					c_target->write(MSG_PRIVMSG(client, c_target, msg.params[1]));
-				}
 				else
 					client->write(ERR_NORECIPIENT(client, msg.cmd));
 			}
