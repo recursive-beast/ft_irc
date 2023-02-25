@@ -27,12 +27,6 @@ static std::string	forEach(
 		if (!ischannel(chname))
 			return (ERR_BADCHANMASK(client, chname));
 		channel = server->createChannel(chname, client);
-		channel->setMode(CH_MODE_TOPIC);
-		channel->setMode(CH_MODE_NO_OUTSIDE);
-		if (!key.empty()) {
-			channel->setMode(CH_MODE_KEY);
-			channel->key = key;
-		}
 	}
 	channel->broadcast(MSG_JOIN(client, channel));
 	client->write(RPL_TOPIC(client, channel));
