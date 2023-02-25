@@ -55,4 +55,5 @@ std::string	ERR_NOTEXTTOSEND(Client *client);
 std::string RPL_CHANNELMODEIS(Client *client, Channel *channel);
 std::string	ERR_NOPRIVILEGES(Client *client);
 
+
 #endif /* REPLIES_HPP */
