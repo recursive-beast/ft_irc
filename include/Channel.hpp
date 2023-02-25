@@ -3,11 +3,11 @@
 
 # define CH_MODE_CREATOR		('O')
 # define CH_MODE_OPERATOR		('o')
-# define CH_MODE_VOICE			('v')
+# define CH_MODE_VOICE			('v') // if m activ gha hada li ayhder and opereter
 
 # define CH_MODE_INVITE_ONLY	('i')
-# define CH_MODE_MODERATED		('m')
-# define CH_MODE_NO_OUTSIDE		('n')
+# define CH_MODE_MODERATED		('m') // ta7ed maydwi
+# define CH_MODE_NO_OUTSIDE		('n') // ta7ed mayssift mn 3la bera
 # define CH_MODE_TOPIC			('t')
 # define CH_MODE_KEY			('k')
 # define CH_MODE_LIMIT			('l')

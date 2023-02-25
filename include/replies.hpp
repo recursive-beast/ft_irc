@@ -45,5 +45,12 @@ std::string	ERR_NOCHANMODES(Client *client, Channel *channel);
 std::string	MSG_JOIN(Client *client, Channel *channel);
 std::string	MSG_MODE(Client *client, Channel *channel);
 std::string	MSG_QUIT(Client *client, std::string reason = "");
+std::string	ERR_NORECIPIENT(Client *client, std::string cmd);
+std::string	MSG_PRIVMSG(Client *sender, Client *target, std::string msg);
+std::string	MSG_PRIVMSG(Client *sender, Channel *target, std::string msg);
+std::string	MSG_NOTICE(Client *sender, Client *target, std::string msg);
+std::string	MSG_NOTICE(Client *sender, Channel *target, std::string msg);
+std::string	ERR_CANNOTSENDTOCHAN(Client *client, Channel *channel);
+std::string	ERR_NOTEXTTOSEND(Client *client);
 
 #endif /* REPLIES_HPP */
