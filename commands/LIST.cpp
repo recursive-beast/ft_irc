@@ -16,7 +16,10 @@ std::string	LIST(Message msg, Server *server, Client *client) {
 		channels = server->getChannels();
 	else
 		channels = filter(server->getChannels(names), isNotNULL);
-	for (size_t i = 0; i < channels.size(); i++)
+	for (size_t i = 0; i < channels.size(); i++) {
+		if ((channels[i]->hasMode(CH_MODE_SECRET) || channels[i]->hasMode(CH_MODE_PRIVATE)) && !channels[i]->isOn(client))
+			continue;
 		client->write(RPL_LIST(client, channels[i]));
+	}
 	return (RPL_LISTEND(client));
 }

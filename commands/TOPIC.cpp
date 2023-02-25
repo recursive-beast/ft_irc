@@ -13,6 +13,8 @@ std::string	TOPIC(Message msg, Server *server, Client *client) {
 	channel = server->getChannel(msg.params[0]);
 	if (!channel)
 		return (ERR_NOSUCHCHANNEL(client, msg.params[0]));
+	if ((channel->hasMode(CH_MODE_SECRET) || channel->hasMode(CH_MODE_PRIVATE)) && !channel->isOn(client))
+		return (ERR_NOSUCHCHANNEL(client, msg.params[0]));
 	if (msg.params.size() == 1)
 		return (RPL_TOPIC(client, channel));
 	if (channel->hasMode(CH_MODE_TOPIC) && !channel->hasMode(CH_MODE_OPERATOR, client))

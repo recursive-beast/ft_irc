@@ -11,6 +11,8 @@
 # define CH_MODE_TOPIC			('t')
 # define CH_MODE_KEY			('k')
 # define CH_MODE_LIMIT			('l')
+# define CH_MODE_SECRET			('s')
+# define CH_MODE_PRIVATE		('p')
 
 # include "Client.hpp"
 # include <set>

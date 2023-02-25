@@ -17,6 +17,8 @@ std::string	NAMES(Message msg, Server *server, Client *client) {
 	else
 		channels = filter(server->getChannels(names), isNotNULL);
 	for (size_t i = 0; i < channels.size(); i++) {
+		if ((channels[i]->hasMode(CH_MODE_SECRET) || channels[i]->hasMode(CH_MODE_PRIVATE)) && !channels[i]->isOn(client))
+			continue;
 		client->write(RPL_NAMREPLY(client, channels[i]));
 		client->write(RPL_ENDOFNAMES(client, channels[i]));
 	}
