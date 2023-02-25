@@ -43,7 +43,7 @@ std::string	ERR_BANNEDFROMCHAN(Client *client, Channel *channel);
 std::string	ERR_BADCHANNELKEY(Client *client, Channel *channel);
 std::string	ERR_NOCHANMODES(Client *client, Channel *channel);
 std::string	MSG_JOIN(Client *client, Channel *channel);
-std::string	MSG_MODE(Client *client, Channel *channel);
+std::string	MSG_MODE(Client *client, Channel *channel, char mode, char op, std::string param);
 std::string	MSG_QUIT(Client *client, std::string reason = "");
 std::string RPL_CHANNELMODEIS(Client *client, Channel *channel);
 std::string	ERR_NOPRIVILEGES(Client *client);

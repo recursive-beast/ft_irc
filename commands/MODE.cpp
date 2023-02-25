@@ -4,7 +4,6 @@
 #include "Channel.hpp"
 #include <string>
 
-#include <iostream>
 std::string	applyMode(Channel *channel, Client *client, char mode, char op, std::string param) {
 	Client	*to_apply;
 
@@ -16,22 +15,46 @@ std::string	applyMode(Channel *channel, Client *client, char mode, char op, std:
 		case CH_MODE_TOPIC:
 			if (op == '+') {
 				channel->setMode(mode);
-				channel->broadcast(RPL_CHANNELMODEIS(client, channel));
+				channel->broadcast(MSG_MODE(client, channel, mode, op, ""));
 			}
 			else if (op == '-') {
 				channel->unsetMode(mode);
-				channel->broadcast(RPL_CHANNELMODEIS(client, channel));
+				channel->broadcast(MSG_MODE(client, channel, mode, op, ""));
+			}
+			return (NO_REPLY());
+		case CH_MODE_SECRET:
+			if (op == '+') {
+				if (!channel->hasMode(CH_MODE_PRIVATE)) {
+					channel->setMode(mode);
+					channel->broadcast(MSG_MODE(client, channel, mode, op, ""));
+				}
+			}
+			else if (op == '-') {
+				channel->unsetMode(mode);
+				channel->broadcast(MSG_MODE(client, channel, mode, op, ""));
+			}
+			return (NO_REPLY());
+		case CH_MODE_PRIVATE:
+			if (op == '+') {
+				if (!channel->hasMode(CH_MODE_SECRET)) {
+					channel->setMode(mode);
+					channel->broadcast(MSG_MODE(client, channel, mode, op, ""));
+				}
+			}
+			else if (op == '-') {
+				channel->unsetMode(mode);
+				channel->broadcast(MSG_MODE(client, channel, mode, op, ""));
 			}
 			return (NO_REPLY());
 		case CH_MODE_KEY:
 			if (op == '+') {
 				channel->key = param;
 				channel->setMode(mode);
-				channel->broadcast(RPL_CHANNELMODEIS(client, channel));
+				channel->broadcast(MSG_MODE(client, channel, mode, op, param));
 			}
 			else if (op == '-') {
 				channel->unsetMode(mode);
-				channel->broadcast(RPL_CHANNELMODEIS(client, channel));
+				channel->broadcast(MSG_MODE(client, channel, mode, op, ""));
 			}
 			return (NO_REPLY());
 		case CH_MODE_LIMIT:
@@ -42,11 +65,11 @@ std::string	applyMode(Channel *channel, Client *client, char mode, char op, std:
 					return (NO_REPLY());
 				}
 				channel->setMode(mode);
-				channel->broadcast(RPL_CHANNELMODEIS(client, channel));
+				channel->broadcast(MSG_MODE(client, channel, mode, op, param));
 			}
 			else if (op == '-') {
 				channel->unsetMode(mode);
-				channel->broadcast(RPL_CHANNELMODEIS(client, channel));
+				channel->broadcast(MSG_MODE(client, channel, mode, op, ""));
 			}
 			return (NO_REPLY());
 		case CH_MODE_CREATOR:
@@ -63,7 +86,7 @@ std::string	applyMode(Channel *channel, Client *client, char mode, char op, std:
 			if (op == '+') {
 				if (to_apply) {
 					channel->setMode(mode, to_apply);
-					channel->broadcast(RPL_CHANNELMODEIS(client, channel));
+					channel->broadcast(MSG_MODE(client, channel, mode, op, param));
 				}
 				else
 					return (ERR_USERNOTINCHANNEL(client, channel, param));
@@ -71,7 +94,7 @@ std::string	applyMode(Channel *channel, Client *client, char mode, char op, std:
 			else if (op == '-') {
 				if (to_apply) {
 					channel->unsetMode(mode, to_apply);
-					channel->broadcast(RPL_CHANNELMODEIS(client, channel));
+					channel->broadcast(MSG_MODE(client, channel, mode, op, param));
 				}
 				else
 					return (ERR_USERNOTINCHANNEL(client, channel, param));
@@ -82,7 +105,7 @@ std::string	applyMode(Channel *channel, Client *client, char mode, char op, std:
 			if (op == '+') {
 				if (to_apply) {
 					channel->setMode(mode, to_apply);
-					channel->broadcast(RPL_CHANNELMODEIS(client, channel));
+					channel->broadcast(MSG_MODE(client, channel, mode, op, param));
 				}
 				else
 					return (ERR_USERNOTINCHANNEL(client, channel, param));
@@ -90,7 +113,7 @@ std::string	applyMode(Channel *channel, Client *client, char mode, char op, std:
 			else if (op == '-') {
 				if (to_apply) {
 					channel->unsetMode(mode, to_apply);
-					channel->broadcast(RPL_CHANNELMODEIS(client, channel));
+					channel->broadcast(MSG_MODE(client, channel, mode, op, param));
 				}
 				else
 					return (ERR_USERNOTINCHANNEL(client, channel, param));

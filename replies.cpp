@@ -205,8 +205,15 @@ std::string	MSG_JOIN(Client *client, Channel *channel) {
 	return (MSG(client, "JOIN", channel->name));
 }
 
-std::string	MSG_MODE(Client *client, Channel *channel) {
-	return (MSG(client, "MODE", channel->name + " +" + join(channel->modes)));
+std::string	MSG_MODE(Client *client, Channel *channel, char mode, char op, std::string param) {
+	std::string msg;
+	if (op == '+')
+		msg = channel->name + " +" + mode;
+	else
+		msg = channel->name + " -" + mode;
+	if (op == '+' && param != "")
+		msg += " " + param;
+	return (MSG(client, "MODE", msg));
 }
 
 std::string RPL_CHANNELMODEIS(Client *client, Channel *channel) {
