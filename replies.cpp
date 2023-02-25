@@ -155,10 +155,10 @@ std::string	RPL_LISTEND(Client *client) {
 	return (REPLY("323", client, ":End of LIST"));
 }
 
-std::string	MSG_KICK(Client *client, Channel *channel, std::string reason = "") {
-	if (reason.length() == 0)
-		reason = client->getNickname();
-	return (MSG(client, "KICK", channel->name + " :" + reason));
+std::string	MSG_KICK(Client *kicker, Client *kicked, Channel *channel, std::string reason = "") {
+	if (reason.empty())
+		reason = kicker->getNickname();
+	return (MSG(kicker, "KICK", channel->name + " " + kicked->getNickname() +  " :" + reason));
 }
 
 std::string	ERR_USERNOTINCHANNEL(Client *client, Channel *channel, std::string nickname) {
@@ -197,10 +197,6 @@ std::string	ERR_BADCHANNELKEY(Client *client, Channel *channel) {
 	return (REPLY("475", client, channel->name + " :Cannot join channel (+k)"));
 }
 
-std::string	ERR_BADCHANMASK(Client *client, Channel *channel) {
-	return (REPLY("476", client, channel->name + " :Bad Channel Mask"));
-}
-
 std::string	ERR_NOCHANMODES(Client *client, Channel *channel) {
 	return (REPLY("477", client, channel->name + " :Channel doesn't support modes"));
 }
@@ -233,5 +229,5 @@ std::string RPL_CHANNELMODEIS(Client *client, Channel *channel) {
 }
 
 std::string	MSG_QUIT(Client *client, std::string reason = "") {
-	return (MSG(client, "QUIT", reason));
+	return (MSG(client, "QUIT", ":" + reason));
 }

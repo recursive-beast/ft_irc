@@ -28,10 +28,9 @@ std::string	PART(Message msg, Server *server, Client *client) {
 	if (msg.params.size() < 1)
 		return (ERR_NEEDMOREPARAMS(client, msg.cmd));
 	names = split(msg.params[0], ",");
-	names = filter(names, isnotempty);
-	if (names.size() == 0)
-		return (ERR_NEEDMOREPARAMS(client, msg.cmd));
 	for (size_t i = 0; i < names.size(); i++) {
+		if (names[i].empty())
+			continue;
 		reply = forEach(msg, server, client, names[i]);
 		if (reply != NO_REPLY())
 			client->write(reply);
