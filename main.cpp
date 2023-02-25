@@ -2,10 +2,12 @@
 #include "commands.hpp"
 #include "replies.hpp"
 #include "utils.hpp"
+#include "validation.hpp"
 #include <vector>
 #include <poll.h>
 #include <iostream>
 #include <signal.h>
+#include <string>
 
 void	handleLine(std::string line, Server *server, Client *client) {
 	Message	msg;
@@ -28,14 +30,29 @@ void	handleDisconnect(Server *server, Client *client) {
 	std::cout << "[" << client->addr << ":" << client->port << "]#" << client->sd << ": disconnected" << std::endl;
 }
 
+Server	*createServer(std::string port, std::string password) {
+	size_t	idx;
+	int		portnum;
+
+	try {
+		portnum = std::stoi(port, &idx);
+	}
+	catch(const std::invalid_argument& e) {
+		throw std::invalid_argument("Invalid argument");
+	}
+	if (idx != port.length() || portnum < 1 || portnum > 65535 || !iskey(password))
+		throw std::invalid_argument("Invalid argument");
+	return (new Server(portnum, password));
+}
+
 int main (int argc, char **argv) {
-	Server	*server = NULL;
+	Server		*server = NULL;
 
 	try {
 		if (argc != 3)
 			throw std::runtime_error("Invalid arg count");
 		signal(SIGPIPE, SIG_IGN);
-		server = new Server(std::stoi(argv[1]), std::string(argv[2]));
+		server = createServer(argv[1], argv[2]);
 		server->onLine = handleLine;
 		server->onConnect = handleConnect;
 		server->onDisconnect = handleDisconnect;
