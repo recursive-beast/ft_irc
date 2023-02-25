@@ -33,6 +33,7 @@ commands/PONG.cpp\
 commands/QUIT.cpp\
 commands/PRIVMSG.cpp\
 commands/NOTICE.cpp\
+commands/MODE.cpp\
 
 MSRC :=
 

@@ -28,7 +28,8 @@ class Channel
 	std::set<char>						modes;
 	std::set<std::string>				inviteList;
 
-	friend std::string	MSG_MODE(Client *client, Channel *channel);
+	friend std::string	MSG_MODE(Client *client, Channel *channel, char mode, char op, std::string param);
+	friend std::string	RPL_CHANNELMODEIS(Client *client, Channel *channel);
 
 	public:
 		Server *const		server;
