@@ -47,5 +47,7 @@ std::string	MSG_MODE(Client *client, Channel *channel, char mode, char op, std::
 std::string	MSG_QUIT(Client *client, std::string reason = "");
 std::string RPL_CHANNELMODEIS(Client *client, Channel *channel);
 std::string	ERR_NOPRIVILEGES(Client *client);
-
+std::string	RPL_WHOISUSER(Client *client, Client *target);
+std::string	RPL_WHOISSERVER(Client *client, Client *target);
+std::string	RPL_ENDOFWHOIS(Client *client, Client *target);
 #endif /* REPLIES_HPP */

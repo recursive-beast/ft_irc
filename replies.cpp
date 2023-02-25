@@ -235,6 +235,18 @@ std::string RPL_CHANNELMODEIS(Client *client, Channel *channel) {
 	return (MSG(client, "MODE", msg));
 }
 
+std::string	RPL_WHOISUSER(Client *client, Client *target) {
+	return (REPLY("311", client, target->getNickname() + " " + target->username + " " + target->addr + " * :" + target->realname));
+}
+
+std::string	RPL_WHOISSERVER(Client *client, Client *target) {
+	return (REPLY("312", client, target->getNickname() + " " + HOSTNAME +  " :ft_irc created by LMA9AWID team"));
+}
+
+std::string	RPL_ENDOFWHOIS(Client *client, Client *target) {
+	return (REPLY("318", client, target->getNickname() + " ::End of WHOIS list"));
+}
+
 std::string	MSG_QUIT(Client *client, std::string reason = "") {
 	return (MSG(client, "QUIT", ":" + reason));
 }

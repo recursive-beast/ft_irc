@@ -32,6 +32,7 @@ commands/JOIN.cpp\
 commands/PONG.cpp\
 commands/QUIT.cpp\
 commands/MODE.cpp\
+commands/WHOIS.cpp\
 
 MSRC :=
 
