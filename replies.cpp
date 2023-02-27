@@ -272,7 +272,7 @@ std::string	RPL_WHOISSERVER(Client *client, Client *target) {
 }
 
 std::string	RPL_ENDOFWHOIS(Client *client, Client *target) {
-	return (REPLY("318", client, target->getNickname() + " ::End of WHOIS list"));
+	return (REPLY("318", client, target->getNickname() + " :End of WHOIS list"));
 }
 
 std::string	MSG_QUIT(Client *client, std::string reason = "") {
