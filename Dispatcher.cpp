@@ -17,6 +17,7 @@ std::string	PRIVMSG(Message msg, Server *server, Client *client);
 std::string	NOTICE(Message msg, Server *server, Client *client);
 std::string	MODE(Message msg, Server *server, Client *client);
 std::string WHOIS(Message msg, Server *server, Client *client);
+std::string	BOT(Message msg, Server *server, Client *client);
 
 void	Dispatcher::init(std::map<std::string, t_cmd_handler> &handlers) {
 	handlers["PASS"] = PASS;
@@ -35,6 +36,7 @@ void	Dispatcher::init(std::map<std::string, t_cmd_handler> &handlers) {
 	handlers["NOTICE"] = NOTICE;
 	handlers["MODE"] = MODE;
 	handlers["WHOIS"] = WHOIS;
+	handlers["BOT"] = BOT;
 }
 
 bool	Dispatcher::dispatch(Message msg, Server *server, Client *client) {
