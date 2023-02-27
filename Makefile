@@ -34,6 +34,7 @@ commands/QUIT.cpp\
 commands/PRIVMSG.cpp\
 commands/NOTICE.cpp\
 commands/MODE.cpp\
+commands/WHOIS.cpp\
 
 MSRC :=
 
