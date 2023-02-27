@@ -13,6 +13,8 @@ std::string	KICK(Message msg, Server *server, Client *client);
 std::string	JOIN(Message msg, Server *server, Client *client);
 std::string	PONG(Message msg, Server *server, Client *client);
 std::string	QUIT(Message msg, Server *server, Client *client);
+std::string	PRIVMSG(Message msg, Server *server, Client *client);
+std::string	NOTICE(Message msg, Server *server, Client *client);
 std::string	MODE(Message msg, Server *server, Client *client);
 
 void	Dispatcher::init(std::map<std::string, t_cmd_handler> &handlers) {
@@ -28,6 +30,8 @@ void	Dispatcher::init(std::map<std::string, t_cmd_handler> &handlers) {
 	handlers["JOIN"] = JOIN;
 	handlers["PONG"] = PONG;
 	handlers["QUIT"] = QUIT;
+	handlers["PRIVMSG"] = PRIVMSG;
+	handlers["NOTICE"] = NOTICE;
 	handlers["MODE"] = MODE;
 }
 
