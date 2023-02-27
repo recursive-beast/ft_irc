@@ -278,3 +278,17 @@ std::string	RPL_ENDOFWHOIS(Client *client, Client *target) {
 std::string	MSG_QUIT(Client *client, std::string reason = "") {
 	return (MSG(client, "QUIT", ":" + reason));
 }
+
+std::string	RPL_WHOISCHANNELS(Client *client, Client *target, std::vector<Channel *> channels) {
+	std::vector<std::string>	names;
+
+	for (size_t i = 0; i < channels.size(); i++) {
+		if (channels[i]->hasMode(CH_MODE_OPERATOR, target))
+			names.push_back("@" + channels[i]->name);
+		else if (channels[i]->hasMode(CH_MODE_VOICE, target))
+			names.push_back("+" + channels[i]->name);
+		else
+			names.push_back(channels[i]->name);
+	}
+	return (REPLY("319", client, target->getNickname() + " :" + join(names, " ")));
+}

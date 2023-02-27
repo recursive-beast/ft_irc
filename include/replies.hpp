@@ -57,5 +57,6 @@ std::string	ERR_NOPRIVILEGES(Client *client);
 std::string	RPL_WHOISUSER(Client *client, Client *target);
 std::string	RPL_WHOISSERVER(Client *client, Client *target);
 std::string	RPL_ENDOFWHOIS(Client *client, Client *target);
+std::string	RPL_WHOISCHANNELS(Client *client, Client *target, std::vector<Channel *> channels);
 
 #endif /* REPLIES_HPP */

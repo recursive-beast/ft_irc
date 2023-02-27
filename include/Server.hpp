@@ -43,6 +43,7 @@ class Server {
 		Channel						*getChannel(std::string name);
 		std::vector<Channel *>		getChannels();
 		std::vector<Channel *>		getChannels(std::vector<std::string> names);
+		std::vector<Channel *>		getChannels(Client *client);
 		std::vector<std::string>	getChannelNames();
 		std::vector<std::string>	getChannelNames(Client *client);
 		void						poll();

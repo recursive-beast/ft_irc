@@ -16,5 +16,6 @@ std::string WHOIS(Message msg, Server *server, Client *client) {
 		return (ERR_NOSUCHNICK(client, msg.params[0]));
 	client->write(RPL_WHOISUSER(client, target));
 	client->write(RPL_WHOISSERVER(client, target));
+	client->write(RPL_WHOISCHANNELS(client, target, server->getChannels(target)));
 	return (RPL_ENDOFWHOIS(client, target));
 }

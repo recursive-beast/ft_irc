@@ -189,6 +189,17 @@ std::vector<Channel *>	Server::getChannels(std::vector<std::string> names) {
 	return (channels);
 }
 
+std::vector<Channel *>	Server::getChannels(Client *client) {
+	std::vector<Channel *>						channels;
+	std::map<std::string, Channel *>::iterator	it;
+
+	for (it = this->channels.begin(); it != this->channels.end(); it++) {
+		if (it->second->isOn(client))
+			channels.push_back(it->second);
+	}
+	return (channels);
+}
+
 std::vector<std::string>	Server::getChannelNames() {
 	std::vector<std::string>					list;
 	std::map<std::string, Channel *>::iterator	it;
